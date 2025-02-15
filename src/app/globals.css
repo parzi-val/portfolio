@@ -25,6 +25,14 @@
   --foreground: #000000;
 }
 
+@layer utilities {
+  .scaled {
+    transform: scale(0.9);
+    transform-origin: top left;
+    width: 111.11%;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

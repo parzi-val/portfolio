@@ -37,7 +37,7 @@ const Portfolio = () => {
 
   return (
 
-    <div className="relative min-h-screen bg-black text-gray-100 p-6">
+    <div className="scaled relative min-h-screen bg-black text-gray-100 p-6">
       <div className="fixed inset-0 w-full h-full pointer-events-none">
         <Particles
           particleColors={["#ffffff", "#99eaff"]}
