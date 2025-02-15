@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import DecryptedText from '../components/DecryptedText.js';
 import Particles from '../components/Particles.js';
 import FadeContent from '../components/FadeContend.js'
@@ -202,7 +203,7 @@ const Portfolio = () => {
                   <div className="absolute left-0 right-0 top-full mt-2 z-10">
                     <a href={project.url} target="_blank" rel="noopener noreferrer">
                       <div className="bg-zinc-900 rounded-lg overflow-hidden shadow-xl">
-                        <img
+                        <Image
                           src={project.image}
                           alt={project.name}
                           className="w-full h-48 object-cover"
