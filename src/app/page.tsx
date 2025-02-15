@@ -207,6 +207,8 @@ const Portfolio = () => {
                           src={project.image}
                           alt={project.name}
                           className="w-full h-48 object-cover"
+                          width={500}
+                          height={300}
                         />
                       </div>
                     </a>
