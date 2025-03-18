@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Navigation } from "@/components/navigation"
 import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Github, Star } from "lucide-react"
+import { ExternalLink, Github} from "lucide-react"
 
 export default function ProjectsPage() {
   const projects = [

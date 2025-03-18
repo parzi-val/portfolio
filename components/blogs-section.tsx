@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 export function DevNotesSection() {
   const devNotes = [
     "Tried Warp AI Terminal – pretty smooth UX.",

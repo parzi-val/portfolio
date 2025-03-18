@@ -2,7 +2,7 @@ import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Github, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react"
+import { Github, Linkedin, Mail, MapPin, Twitter } from "lucide-react"
 
 export default function ContactPage() {
   return (
@@ -69,7 +69,7 @@ export default function ContactPage() {
                 <Button className="w-full bg-violet-600 hover:bg-violet-700 text-white">Send Message</Button>
 
                 <p className="text-xs text-gray-400 text-center mt-4">
-                  I'll get back to you as soon as possible. Usually within 24-48 hours.
+                  I&apos;ll get back to you as soon as possible. Usually within 24-48 hours.
                 </p>
               </form>
             </div>
