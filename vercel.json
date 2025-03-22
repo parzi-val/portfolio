@@ -2,10 +2,7 @@
     "builds": [
         {
             "src": "package.json",
-            "use": "@vercel/next",
-            "config": {
-                "nodeVersion": "18.x"
-            }
+            "use": "@vercel/next"
         }
     ]
 }
