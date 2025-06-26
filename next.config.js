@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  productionBrowserSourceMaps: false, // Disable source maps for production
   webpack: (config) => {
-    config.cache = false;  // Cache setting
+    
     return config;
   },
   images: {
