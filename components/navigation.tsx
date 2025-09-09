@@ -42,7 +42,7 @@ export function Navigation({ currentPath }: NavigationProps) {
         <div className="sm:hidden flex items-center">
           <Menu className="w-6 h-6 mr-3" />
           <span>{getPathDisplay()}</span>
-          <span className="mx-1">></span>
+          <span className="mx-1">{'>'}</span>
           <span 
             className="inline-block text-violet-400"
             style={{
@@ -54,7 +54,7 @@ export function Navigation({ currentPath }: NavigationProps) {
         {/* Desktop: just breadcrumb */}
         <div className="hidden sm:flex items-center">
           <span>{getPathDisplay()}</span>
-          <span className="mx-1">></span>
+          <span className="mx-1">{'>'}</span>
           <span 
             className="inline-block text-violet-400"
             style={{
