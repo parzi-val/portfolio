@@ -98,7 +98,7 @@ export default function ContactPage() {
 
                 <Button
                   type="submit"
-                  className="w-full bg-violet-600 hover:bg-violet-700 text-white"
+                  className="w-full bg-violet-600 hover:bg-violet-700 text-white relative overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-violet-500/25 active:scale-[0.98]"
                   disabled={status === "Sending..."}
                 >
                   {status === "Sending..." ? "Sending..." : "Send Message"}
@@ -157,33 +157,33 @@ export default function ContactPage() {
                     href="https://github.com/parzi-val"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 hover:bg-[#252525] p-2 -mx-2 rounded transition-colors"
+                    className="flex items-center gap-3 hover:bg-[#252525] p-2 -mx-2 rounded transition-colors icon-tilt"
                   >
-                    <div className="w-10 h-10 rounded-full bg-[#252525] flex items-center justify-center text-violet-400">
+                    <div className="w-10 h-10 rounded-full bg-[#252525] flex items-center justify-center text-violet-400 icon">
                       <Github className="w-5 h-5" />
                     </div>
                     <div className="font-medium">GitHub</div>
                   </a>
 
                   <a
-                    href="https://www.linkedin.com/in/balasubramanian-kr-7424a5222/"
+                    href="https://www.linkedin.com/in/balasubramaniankr/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 hover:bg-[#252525] p-2 -mx-2 rounded transition-colors"
+                    className="flex items-center gap-3 hover:bg-[#252525] p-2 -mx-2 rounded transition-colors icon-tilt"
                   >
-                    <div className="w-10 h-10 rounded-full bg-[#252525] flex items-center justify-center text-violet-400">
+                    <div className="w-10 h-10 rounded-full bg-[#252525] flex items-center justify-center text-violet-400 icon">
                       <Linkedin className="w-5 h-5" />
                     </div>
                     <div className="font-medium">LinkedIn</div>
                   </a>
 
                   <a
-                    href="https://x.com/_balalalala_"
+                    href="https://x.com/parzeival"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 hover:bg-[#252525] p-2 -mx-2 rounded transition-colors"
+                    className="flex items-center gap-3 hover:bg-[#252525] p-2 -mx-2 rounded transition-colors icon-tilt"
                   >
-                    <div className="w-10 h-10 rounded-full bg-[#252525] flex items-center justify-center text-violet-400">
+                    <div className="w-10 h-10 rounded-full bg-[#252525] flex items-center justify-center text-violet-400 icon">
                       <Twitter className="w-5 h-5" />
                     </div>
                     <div className="font-medium">Twitter</div>
@@ -191,9 +191,9 @@ export default function ContactPage() {
 
                   <a
                     href="mailto:krbala1511@gmail.com"
-                    className="flex items-center gap-3 hover:bg-[#252525] p-2 -mx-2 rounded transition-colors"
+                    className="flex items-center gap-3 hover:bg-[#252525] p-2 -mx-2 rounded transition-colors icon-tilt"
                   >
-                    <div className="w-10 h-10 rounded-full bg-[#252525] flex items-center justify-center text-violet-400">
+                    <div className="w-10 h-10 rounded-full bg-[#252525] flex items-center justify-center text-violet-400 icon">
                       <Mail className="w-5 h-5" />
                     </div>
                     <div className="font-.medium">Email</div>

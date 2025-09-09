@@ -63,3 +63,26 @@
   font-feature-settings: "liga" 1, "calt" 1;
 }
 
+.icon-tilt:hover .icon {
+  animation: tilt 0.6s ease-in-out;
+}
+
+@keyframes tilt {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+

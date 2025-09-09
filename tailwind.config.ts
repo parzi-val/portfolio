@@ -55,6 +55,34 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		animation: {
+  			'ball-bounce': 'ball-bounce 1.2s ease-out',
+  			'blink': 'blink 1s infinite'
+  		},
+  		keyframes: {
+  			'ball-bounce': {
+  				'0%, 20%, 53%, 80%, 100%': {
+  					transform: 'translateY(0)'
+  				},
+  				'40%, 43%': {
+  					transform: 'translateY(-20px)'
+  				},
+  				'70%': {
+  					transform: 'translateY(-10px)'
+  				},
+  				'90%': {
+  					transform: 'translateY(-4px)'
+  				}
+  			},
+  			'blink': {
+  				'0%, 50%': {
+  					opacity: '1'
+  				},
+  				'51%, 100%': {
+  					opacity: '0'
+  				}
+  			}
   		}
   	}
   },

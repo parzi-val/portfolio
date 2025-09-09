@@ -2,19 +2,18 @@ import Link from "next/link"
 import Image from "next/image"
 import { Navigation } from "@/components/navigation"
 import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Github} from "lucide-react"
+import { ExternalLink, Github } from "lucide-react"
 
 export default function ProjectsPage() {
   const projects = [
     {
-      title: "de-mesp",
+      title: "MSME Sahayata",
       description:
-        "A decentralized AI marketplace focused on the validation of medical data using AI models and blockchain technology.",
-      image: "/demesp.png?height=200&width=400",
-      tags: ["Express.js", "FastAPI", "Gemini"],
-
-      url: "https://github.com/coderman400/de-mesp",
-      github: "https://github.com/coderman400/de-mesp",
+        "An intelligent and accessible chatbot assistant designed to help individuals, especially women entrepreneurs and small business owners, explore government schemes, grants, and subsidies available for MSMEs in India.",
+      image: "/msme.png?height=200&width=400",
+      tags: ["React", "Next.js", "AI", "Chatbot"],
+      url: "https://msme-sahayata.vercel.app/",
+      github: "https://github.com/parzi-val/msme-sahayata",
       featured: true,
     },
     {
@@ -27,16 +26,7 @@ export default function ProjectsPage() {
       featured: true,
     },
     {
-      title: "Malayalam Lexicons",
-      description: "Comprehensive collection of Malayalam words, including meanings, synonyms, IPA, POS, and morphemes.",
-      image: "/placeholder.svg?height=200&width=400",
-      tags: ["Python", "Streamlit"],
-      url: "https://malayalam-lexicons.streamlit.app",
-      github: "https://github.com/parzi-val/malayalam-lexicons",
-      featured: false,
-    },
-    {
-      title: "Axle (In Progress)",
+      title: "Axle",
       description:
         "Axle is a real-time file synchronization system that tracks changes in a directory and efficiently computes differences using an XOR-based mechanism.",
       image: "/placeholder.svg?height=200&width=400",
@@ -46,12 +36,32 @@ export default function ProjectsPage() {
       featured: false,
     },
     {
-      title: "Devspeaks",
-      description: "Reddit style forum app for developers to share knowledge and discuss trending topics.",
+      title: "Veritas",
+      description:
+        "A minimal Python microframework for safe shared mutable defaults, enabling lightweight stateful systems and in-memory caches.",
       image: "/placeholder.svg?height=200&width=400",
-      tags: ["Django"],
-      url: "https://github.com/parzi-val/devspeaks",
-      github: "https://github.com/parzi-val/devspeaks",
+      tags: ["Python", "Microframework", "Async"],
+      url: "https://pypi.org/project/veritas-mem/",
+      github: "https://github.com/parzi-val/veritas",
+      featured: false,
+    },
+    {
+      title: "de-mesp",
+      description:
+        "A decentralized AI marketplace focused on the validation of medical data using AI models and blockchain technology.",
+      image: "/demesp.png?height=200&width=400",
+      tags: ["Express.js", "FastAPI", "Gemini"],
+      url: "https://github.com/coderman400/de-mesp",
+      github: "https://github.com/coderman400/de-mesp",
+      featured: false,
+    },
+    {
+      title: "Malayalam Lexicons",
+      description: "Comprehensive collection of Malayalam words, including meanings, synonyms, IPA, POS, and morphemes.",
+      image: "/placeholder.svg?height=200&width=400",
+      tags: ["Python", "Streamlit"],
+      url: "https://malayalam-lexicons.streamlit.app",
+      github: "https://github.com/parzi-val/malayalam-lexicons",
       featured: false,
     },
     {
@@ -61,6 +71,15 @@ export default function ProjectsPage() {
       tags: ["YOLOv8", "Spacy", "MongoDB"],
       url: "https://github.com/parzi-val/fuzzy-querying",
       github: "https://github.com/parzi-val/fuzzy-querying",
+      featured: false,
+    },
+    {
+      title: "Devspeaks",
+      description: "Reddit style forum app for developers to share knowledge and discuss trending topics.",
+      image: "/placeholder.svg?height=200&width=400",
+      tags: ["Django"],
+      url: "https://github.com/parzi-val/devspeaks",
+      github: "https://github.com/parzi-val/devspeaks",
       featured: false,
     },
   ]

@@ -2,6 +2,8 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useState, useEffect } from "react"
+import { Menu } from "lucide-react"
 
 interface NavigationProps {
   currentPath?: string
@@ -10,6 +12,7 @@ interface NavigationProps {
 export function Navigation({ currentPath }: NavigationProps) {
   const pathname = usePathname()
   const activePath = currentPath || pathname
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
   const tabs = [
     { name: "Home", path: "/" },
@@ -18,10 +21,73 @@ export function Navigation({ currentPath }: NavigationProps) {
     { name: "Contact", path: "/contact" },
   ]
 
+  // Get current path display
+  const getPathDisplay = () => {
+    switch(activePath) {
+      case "/": return "~/bala/home"
+      case "/projects": return "~/bala/projects"
+      case "/contact": return "~/bala/contact"
+      default: return "~/bala"
+    }
+  }
+
   return (
-    <div className="flex items-center border-b border-gray-800 pb-2 ">
-      <div className="text-xl font-bold mr-6 text-violet-400">B</div>
-      <nav className="flex space-x-6">
+    <div className="flex items-center justify-between border-b border-gray-800 pb-2 relative">
+      <div 
+        className="text-xl font-bold text-violet-400 font-jetbrains flex items-center cursor-pointer hover:bg-gray-800/30 px-2 py-1 rounded transition-all duration-200 relative group"
+        onMouseEnter={() => setIsDropdownOpen(true)}
+        onMouseLeave={() => setIsDropdownOpen(false)}
+      >
+        {/* Mobile: hamburger + breadcrumb */}
+        <div className="sm:hidden flex items-center">
+          <Menu className="w-6 h-6 mr-3" />
+          <span>{getPathDisplay()}</span>
+          <span className="mx-1">></span>
+          <span 
+            className="inline-block text-violet-400"
+            style={{
+              animation: 'blink 1s infinite',
+            }}
+          >_</span>
+        </div>
+
+        {/* Desktop: just breadcrumb */}
+        <div className="hidden sm:flex items-center">
+          <span>{getPathDisplay()}</span>
+          <span className="mx-1">></span>
+          <span 
+            className="inline-block text-violet-400"
+            style={{
+              animation: 'blink 1s infinite',
+            }}
+          >_</span>
+        </div>
+
+        {/* Dropdown */}
+        {isDropdownOpen && (
+          <div 
+            className="absolute top-full left-0 mt-2 bg-[#1a1a1a] border border-gray-700 rounded shadow-lg py-2 z-50 min-w-[200px]"
+            onMouseEnter={() => setIsDropdownOpen(true)}
+            onMouseLeave={() => setIsDropdownOpen(false)}
+          >
+            {tabs.map((tab) => (
+              <Link
+                key={tab.name}
+                href={tab.path}
+                className={`block px-4 py-2 hover:bg-gray-800/50 transition-colors ${
+                  activePath === tab.path ? "text-violet-400 bg-gray-800/30" : "text-gray-300"
+                }`}
+              >
+                <span className="font-jetbrains text-sm">cd {tab.path === "/" ? "~" : `~${tab.path}`}</span>
+                <span className="block text-xs text-gray-400 mt-1">{tab.name}</span>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Desktop nav - hidden on mobile */}
+      <nav className="hidden sm:flex space-x-6">
         {tabs.map((tab) => (
           <Link
             key={tab.name}
