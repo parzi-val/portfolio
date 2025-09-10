@@ -2,6 +2,7 @@ import { ProfileCard } from "@/components/profile-card"
 import { ExperienceSection } from "@/components/experience-section"
 import { DevNotesSection } from "@/components/blogs-section"
 import { SocialSection } from "@/components/social-section"
+import { ResumeSection } from "@/components/resume-section"
 import { RepositoryStats } from "@/components/repository-stats"
 import { Navigation } from "@/components/navigation"
 
@@ -16,6 +17,7 @@ export default function HomePage() {
           <div className="md:col-span-3 space-y-6">
             <ProfileCard />
             <SocialSection />
+            <ResumeSection />
           </div>
 
           {/* Middle Column - Experience & Projects */}
