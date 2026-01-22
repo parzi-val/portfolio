@@ -23,28 +23,28 @@ export function ExperienceSection() {
 
   const projects = [
     {
-      title: "Backend Developer - FFCS",
-      period: "2024",
-      description:
-        "Developed the backend architecture on FastAPI framework for an automated semester timetable generation system, enhancing scheduling efficiency for VIT students.",
-      skills: ["FastAPI", "Gemini", "Asyncio"],
-      url: "https://ffcs-pearl.vercel.app/",
-    },
-    {
       title: "System Design & SDE - Axle",
       period: "2025 - Present",
       description:
-        "Developing a real-time file synchronization system that tracks changes in a directory and efficiently computes differences using a hybrid Git - XOR mechanism.",
+        "Axle is a real-time collaborative file synchronization system that enables teams to work together on shared directories using Git and Redis.",
       skills: ["Go", "Fsnotify", "Git", "Networks"],
       url: "https://github.com/parzi-val/axle-file-sync",
     },
     {
-      title: "Backend Developer - Altrobot",
+      title: "Judge - AI Safety Engine",
       period: "2025",
       description:
-        "Developed the backend architecture for an automation tool that compresses images and generates alt text for blogs, significantly increasing efficiency.",
-      skills: ["FastAPI", "Gemini", "Asyncio"],
-      url: "https://altrobot.vercel.app",
+        "Developed a unified guardrail framework combining content moderation, RBAC authorization, and input validation under a single policy abstraction using SLMs.",
+      skills: ["Python", "SLMs", "Asyncio", "Security"],
+      url: "https://github.com/parzi-val/judge",
+    },
+    {
+      title: "Backend Developer - MSME Sahayata",
+      period: "2024",
+      description:
+        "An intelligent chatbot assistant helping entrepreneurs explore government schemes. Built with RAG architecture for accurate retrieval of scheme details.",
+      skills: ["React", "Next.js", "AI", "Chatbot"],
+      url: "https://msme-sahayata.vercel.app/",
     },
   ]
 
@@ -57,8 +57,8 @@ export function ExperienceSection() {
           <div className="text-sm text-gray-400 mt-1">{item.description}</div>
           <div className="flex flex-wrap gap-2 mt-2">
             {item.skills.map((skill: string, j: number) => (
-              <span 
-                key={j} 
+              <span
+                key={j}
                 className="text-xs bg-[#252525] text-gray-300 px-2 py-1 rounded cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-violet-600 hover:to-purple-600 hover:text-white hover:scale-105 hover:shadow-lg hover:shadow-violet-500/25"
               >
                 {skill}
@@ -78,8 +78,8 @@ export function ExperienceSection() {
           <div className="text-sm text-gray-400 mt-1">{item.description}</div>
           <div className="flex flex-wrap gap-2 mt-2">
             {item.skills.map((skill: string, j: number) => (
-              <span 
-                key={j} 
+              <span
+                key={j}
                 className="text-xs bg-[#252525] text-gray-300 px-2 py-1 rounded cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-violet-600 hover:to-purple-600 hover:text-white hover:scale-105 hover:shadow-lg hover:shadow-violet-500/25"
               >
                 {skill}

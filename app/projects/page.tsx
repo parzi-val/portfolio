@@ -7,14 +7,54 @@ import { ExternalLink, Github } from "lucide-react"
 export default function ProjectsPage() {
   const projects = [
     {
+      title: "Axle",
+      description:
+        "Axle is a real-time collaborative file synchronization system that enables teams to work together on shared directories using Git and Redis.",
+      image: "/axle.png?height=200&width=400",
+      tags: ["Go", "Fsnotify", "Git", "Redis"],
+      url: "https://parzi-val.github.io/axle-file-sync/",
+      github: "https://github.com/parzi-val/axle-file-sync",
+      featured: true,
+    },
+    {
+      title: "Judge",
+      description:
+        "Unified guardrail system for evaluating user prompts against safety policies using Small Language Models (SLMs) and logical policy expressions.",
+      image: "/placeholder.svg?height=200&width=400",
+      tags: ["Python", "SLMs", "Guardrails", "Asyncio"],
+      url: "https://github.com/parzi-val/judge",
+      github: "https://github.com/parzi-val/judge",
+      featured: false,
+    },
+    {
       title: "MSME Sahayata",
       description:
-        "An intelligent and accessible chatbot assistant designed to help individuals, especially women entrepreneurs and small business owners, explore government schemes, grants, and subsidies available for MSMEs in India.",
+        "An intelligent and accessible chatbot assistant designed to help individuals, especially women entrepreneurs and small business owners, explore government schemes.",
       image: "/msme.png?height=200&width=400",
       tags: ["React", "Next.js", "AI", "Chatbot"],
       url: "https://msme-sahayata.vercel.app/",
       github: "https://github.com/parzi-val/msme-sahayata",
       featured: true,
+    },
+    {
+      title: "WeatherGPT",
+      description:
+        "A modern weather forecasting platform combining transformer-based predictions with conversational AI powered by Google Gemini.",
+      image: "/placeholder.svg?height=200&width=400",
+      tags: ["Python", "Transformers", "FastAPI", "React"],
+      url: "https://github.com/parzi-val/weather-gpt",
+      github: "https://github.com/parzi-val/weather-gpt",
+      featured: false,
+    },
+    {
+      title: "PR Agent",
+      description:
+        "Automated code review tool powered by LLMs that analyzes Pull Requests, identifies issues, and provides actionable suggestions.",
+      image: "/placeholder.svg?height=200&width=400",
+      tags: ["Python", "LangChain", "OpenAI", "Next.js"],
+      url: "https://github.com/parzi-val/pr-agent",
+      github: "https://github.com/parzi-val/pr-agent",
+      featured: false,
     },
     {
       title: "FFCS Timetable Generator",
@@ -23,16 +63,6 @@ export default function ProjectsPage() {
       tags: ["FastAPI", "Gemini", "Asyncio"],
       url: "https://ffcs-pearl.vercel.app/",
       github: "https://github.com/parzi-val/ffcs",
-      featured: true,
-    },
-    {
-      title: "Axle",
-      description:
-        "Axle is a real-time file synchronization system that tracks changes in a directory and efficiently computes differences using an XOR-based mechanism.",
-      image: "/placeholder.svg?height=200&width=400",
-      tags: ["Go", "Fsnotify", "Git"],
-      url: "https://github.com/parzi-val/axle-file-sync",
-      github: "https://github.com/parzi-val/axle-file-sync",
       featured: false,
     },
     {
@@ -71,15 +101,6 @@ export default function ProjectsPage() {
       tags: ["YOLOv8", "Spacy", "MongoDB"],
       url: "https://github.com/parzi-val/fuzzy-querying",
       github: "https://github.com/parzi-val/fuzzy-querying",
-      featured: false,
-    },
-    {
-      title: "Devspeaks",
-      description: "Reddit style forum app for developers to share knowledge and discuss trending topics.",
-      image: "/placeholder.svg?height=200&width=400",
-      tags: ["Django"],
-      url: "https://github.com/parzi-val/devspeaks",
-      github: "https://github.com/parzi-val/devspeaks",
       featured: false,
     },
   ]

@@ -3,7 +3,7 @@ import { ExperienceSection } from "@/components/experience-section"
 import { DevNotesSection } from "@/components/blogs-section"
 import { SocialSection } from "@/components/social-section"
 import { ResumeSection } from "@/components/resume-section"
-import { RepositoryStats } from "@/components/repository-stats"
+import { PublicationsCard } from "@/components/publications-card"
 import { Navigation } from "@/components/navigation"
 
 export default function HomePage() {
@@ -27,8 +27,8 @@ export default function HomePage() {
 
           {/* Right Column - Blogs & Repository */}
           <div className="md:col-span-3 space-y-6">
+            <PublicationsCard />
             <DevNotesSection />
-            <RepositoryStats />
           </div>
         </div>
       </div>

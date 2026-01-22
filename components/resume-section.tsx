@@ -7,7 +7,7 @@ export function ResumeSection() {
       <h2 className="text-lg font-bold mb-4">Resume</h2>
       
       <Link
-        href="https://drive.google.com/file/d/18qMJOBUk1-MJa_vazY32RlDlTl30bm2C/view?usp=sharing"
+        href="https://drive.google.com/file/d/1IonheWXeP6qduIyeO9GQjwvc1XvxbtZ2/view?usp=sharing"
         className="flex items-center gap-3 hover:bg-[#252525] p-2 -mx-2 rounded transition-colors icon-tilt"
         target="_blank"
         rel="noopener noreferrer"
