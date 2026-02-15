@@ -1,38 +1,35 @@
-import { ProfileCard } from "@/components/profile-card"
+import { AboutSection } from "@/components/about-section"
+import { getPortfolioData } from "@/lib/data"
 import { ExperienceSection } from "@/components/experience-section"
-import { DevNotesSection } from "@/components/blogs-section"
-import { SocialSection } from "@/components/social-section"
-import { ResumeSection } from "@/components/resume-section"
-import { PublicationsCard } from "@/components/publications-card"
-import { Navigation } from "@/components/navigation"
+import { ProjectsSection } from "@/components/projects-section"
+import { ScrollReveal } from "@/components/scroll-reveal"
 
-export default function HomePage() {
+export default async function HomePage() {
+  const data = await getPortfolioData()
+
   return (
-    <div className="min-h-screen bg-[#121212] text-gray-200 font-jetbrains">
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <Navigation currentPath="/" />
+    <div className="bg-background text-foreground font-sans selection:bg-primary/20">
+      <main className="flex flex-col gap-32 pb-32 pt-32">
+        <div className="max-w-6xl mx-auto w-full px-6 space-y-32">
+          <ScrollReveal animation="fade-in">
+            <AboutSection data={data} />
+          </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-6">
-          {/* Left Column - Profile Card & Social */}
-          <div className="md:col-span-3 space-y-6">
-            <ProfileCard />
-            <SocialSection />
-            <ResumeSection />
-          </div>
+          <ScrollReveal animation="fade-up" delay={200}>
+            <div id="experience" className="scroll-mt-32">
+              <h2 className="text-xl font-medium mb-12 tracking-tight">Experience</h2>
+              <ExperienceSection experiences={data.experiences} />
+            </div>
+          </ScrollReveal>
 
-          {/* Middle Column - Experience & Projects */}
-          <div className="md:col-span-6 space-y-6">
-            <ExperienceSection />
-          </div>
-
-          {/* Right Column - Blogs & Repository */}
-          <div className="md:col-span-3 space-y-6">
-            <PublicationsCard />
-            <DevNotesSection />
-          </div>
+          <ScrollReveal animation="fade-up">
+            <div id="projects-full" className="scroll-mt-32">
+              <h2 className="text-xl font-medium mb-12 tracking-tight">Projects</h2>
+              <ProjectsSection projects={data.projects} />
+            </div>
+          </ScrollReveal>
         </div>
-      </div>
+      </main>
     </div>
   )
 }
-

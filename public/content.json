@@ -1,0 +1,127 @@
+{
+    "bio": {
+        "greeting": "Hi, I'm Bala",
+        "paragraphs": [
+            "I'm a systems-oriented software engineer who builds low-level infrastructure, deterministic pipelines, and developer tooling that prioritizes reliability, debuggability, and structured outputs over magic. I move comfortably between bare-metal-ish thinking and high-level abstractions when it actually makes sense.",
+            "Most of my work sits at the intersection of distributed systems, real-time synchronization, and applied AI — lately focusing on agent architectures, GPU-accelerated compute, and slowly orbiting back toward robotics and simulation."
+        ],
+        "avatar": "/me.jpg"
+    },
+    "socials": [
+        {
+            "platform": "GitHub",
+            "href": "https://github.com/parzi-val"
+        },
+        {
+            "platform": "LinkedIn",
+            "href": "https://www.linkedin.com/in/balasubramaniankr/"
+        },
+        {
+            "platform": "Twitter",
+            "href": "https://x.com/parzeival"
+        },
+        {
+            "platform": "Email",
+            "href": "mailto:krbala1511@gmail.com"
+        }
+    ],
+    "experiences": [
+        {
+            "title": "AI Agentic R&D Intern - NTT GDC",
+            "period": "May 2025 - July 2025",
+            "description": "Built 'Judge', a real-time LLM guardrail and policy evaluation engine that reduced evaluation latency by 83%. Researched MCP and designed prototype multi-agent and single-agent hybrid architectures focused on reliability and controllability for enterprise AI systems.",
+            "skills": [
+                "LLM",
+                "MCP",
+                "Google ADK",
+                "Crew AI",
+                "Semantic Kernel",
+                "Async Systems"
+            ],
+            "url": ""
+        }
+    ],
+    "projects": [
+        {
+            "title": "Judge / PolicyTree",
+            "description": "Unified Safety & Authorization Engine. A guardrail framework combining content moderation, RBAC, and agent tool-governance under a single policy abstraction. Uses an async tree-based policy evaluator with parallel SLM execution and deterministic outputs.",
+            "tags": [
+                "Python",
+                "SLM",
+                "Asyncio",
+                "Guardrails",
+                "Policy Engines"
+            ],
+            "link": "https://github.com/parzi-val/judge"
+        },
+        {
+            "title": "WeatherGPT",
+            "description": "AI-powered weather intelligence platform combining transformer-based forecasting with conversational interfaces (Gemini). Integrates real-time data from Open-Meteo and features a modern dark-mode UI using shadcn/ui.",
+            "tags": [
+                "Next.js",
+                "Gemini",
+                "Transformers",
+                "Open-Meteo"
+            ],
+            "link": "https://github.com/parzi-val/weather-gpt"
+        },
+        {
+            "title": "PR Agent",
+            "description": "Automated code review system that analyzes Pull Requests using a graph-based agent workflow to surface logic, security, and performance issues with severity-scored suggestions.",
+            "tags": [
+                "LLM",
+                "Agent Graphs",
+                "Code Review",
+                "Automation"
+            ],
+            "link": "https://github.com/parzi-val/pr-agent"
+        },
+        {
+            "title": "Axle File Sync",
+            "description": "Peer-to-peer real-time file synchronization system for local teams and hackathons. Uses Git for diffs, Redis pub/sub for instant change propagation, and focuses on fast iteration rather than long-term cloud hosting.",
+            "tags": [
+                "Go",
+                "Redis",
+                "Git",
+                "P2P",
+                "Real-time"
+            ],
+            "link": "https://github.com/parzi-val/axle"
+        }
+    ],
+    "writings": [
+        {
+            "title": "Decentralized Digital Identity: A Blockchain and Neural Network Approach",
+            "description": "Featured research in Premier Journal of Science (2025). Explores integrating neural network technologies with blockchain-powered decentralized identity management.",
+            "date": "2025",
+            "link": "/publications/decentralized-identity",
+            "tags": [
+                "Blockchain",
+                "Neural Networks",
+                "Identity"
+            ]
+        },
+        {
+            "title": "Veritas: Mutable Defaults to Lambda Classes",
+            "description": "A deep dive into building a Python microframework, exploring the nuances of mutable defaults and metaprogramming.",
+            "date": "Feb 2025",
+            "link": "https://earthy-shrimp-457.notion.site/veritas-mutable-defaults-to-lambda-classes-24147640429a809ba1ced30cdbe320a4",
+            "tags": [
+                "Python",
+                "Metaprogramming",
+                "Framework Design"
+            ]
+        },
+        {
+            "title": "Understanding Malayalam's Agama Sandhi using FSA",
+            "description": "Modelling the complexities of Malayalam morphology and sandhi rules using Finite State Automata.",
+            "date": "Jan 2025",
+            "link": "https://medium.com/@krbala1511/understanding-malayalams-agama-sandhi-%E0%B4%86%E0%B4%97%E0%B4%AE%E0%B4%B8%E0%B4%A8%E0%B4%BF-rule-using-fsa-bc25a3a97d3b",
+            "tags": [
+                "Linguistics",
+                "FSA",
+                "Natural Language Processing"
+            ]
+        }
+    ]
+}
