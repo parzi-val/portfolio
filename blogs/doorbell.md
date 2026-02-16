@@ -1,7 +1,7 @@
 ---
 title: "Doorway Intelligence: A Physics-Grounded Approach to Behavioral Threat Detection"
 description: "A physics-grounded approach to behavioral threat detection using pose-based kinematics, MoViNet, and geometric signals."
-date: "Feb 2025"
+date: "Feb 2026"
 tags: ["AI", "Computer Vision", "Systems", "Security"]
 ---
 
