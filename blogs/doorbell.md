@@ -101,7 +101,7 @@ Parallel worker processes for MoViNet and YOLO ensure the main loop maintains re
 
 ## 3. What's New Here
 
-This work differs from existing approaches in three ways:
+This work differs from existing approaches in the following ways:
 
 **1. Physics-grounded feature engineering rather than end-to-end learning**
 
@@ -475,7 +475,7 @@ Future work includes:
 * Friendly face recognition with signal dampening
 * Deeper exploration of temporal pattern mining across multiple visits
 
-The system runs in production on consumer hardware, processes 30 FPS with sub-200ms latency, and has recorded 100+ events with user feedback enabling weight refinement.
+The system runs in production on consumer hardware, processes 30 FPS with sub-200ms latency, and has recorded events with user feedback enabling weight refinement.
 
 > Sometimes intelligence is not about learning everything. It is about measuring the right few things well.
 
