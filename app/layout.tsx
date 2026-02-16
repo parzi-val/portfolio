@@ -21,7 +21,28 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   title: "Balasubramanian KR",
-  description: "A modern developer portfolio",
+  description: "AI, systems infrastructure, and technical writing.",
+  openGraph: {
+    title: "Balasubramanian KR",
+    description: "AI, systems infrastructure, and technical writing.",
+    url: "https://bala.is-a.dev",
+    siteName: "Balasubramanian KR Portfolio",
+    images: [
+      {
+        url: "/me.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Balasubramanian KR",
+    description: "AI, systems infrastructure, and technical writing.",
+    images: ["/me.jpg"],
+  },
 };
 
 export default function RootLayout({
