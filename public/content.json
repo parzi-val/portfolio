@@ -3,7 +3,7 @@
         "greeting": "Hi, I'm Bala",
         "paragraphs": [
             "I'm a systems-oriented software engineer who builds low-level infrastructure, deterministic pipelines, and developer tooling that prioritizes reliability, debuggability, and structured outputs over magic. I move comfortably between bare-metal-ish thinking and high-level abstractions when it actually makes sense.",
-            "Most of my work sits at the intersection of distributed systems, real-time synchronization, and applied AI — lately focusing on agent architectures, GPU-accelerated compute, and slowly orbiting back toward robotics and simulation."
+            "Most of my work sits at the intersection of distributed systems, real-time synchronization, and applied AI — lately exploring multi agent architectures, physical intelligence, representational learning and slowly orbiting back toward robotics and simulation."
         ],
         "avatar": "/me.jpg"
     },
@@ -43,8 +43,36 @@
     ],
     "projects": [
         {
+            "title": "Doorway Intelligence",
+            "description": "A physics-grounded approach to behavioral threat detection using pose-based kinematics, MoViNet, and geometric signals.",
+            "tags": [
+                "AI",
+                "Computer Vision",
+                "Systems",
+                "Security"
+            ],
+            "link": "/writing/doorbell",
+            "github": "https://github.com/parzi-val/doorbell-cam",
+            "featured": true,
+            "image": ""
+        },
+        {
+            "title": "Axle",
+            "description": "A real-time collaborative file synchronization system that enables teams to work together on shared directories using Git and Redis.",
+            "tags": [
+                "Go",
+                "Fsnotify",
+                "Git",
+                "Redis"
+            ],
+            "link": "https://parzi-val.github.io/axle-file-sync/",
+            "github": "https://github.com/parzi-val/axle-file-sync",
+            "featured": true,
+            "image": "/axle.png"
+        },
+        {
             "title": "Judge / PolicyTree",
-            "description": "Unified Safety & Authorization Engine. A guardrail framework combining content moderation, RBAC, and agent tool-governance under a single policy abstraction. Uses an async tree-based policy evaluator with parallel SLM execution and deterministic outputs.",
+            "description": "Unified Safety & Authorization Engine. A guardrail framework combining content moderation, RBAC, and agent tool-governance under a single policy abstraction. Uses an async tree-based policy evaluator with parallel SLM execution.",
             "tags": [
                 "Python",
                 "SLM",
@@ -52,41 +80,116 @@
                 "Guardrails",
                 "Policy Engines"
             ],
-            "link": "https://github.com/parzi-val/judge"
+            "link": "https://github.com/parzi-val/judge",
+            "github": "https://github.com/parzi-val/judge",
+            "featured": true,
+            "image": ""
+        },
+        {
+            "title": "MSME Sahayata",
+            "description": "An intelligent and accessible chatbot assistant designed to help small business owners explore government schemes.",
+            "tags": [
+                "React",
+                "Next.js",
+                "AI",
+                "Chatbot"
+            ],
+            "link": "https://msme-sahayata.vercel.app/",
+            "github": "https://github.com/parzi-val/msme-sahayata",
+            "featured": true,
+            "image": "/msme.png"
         },
         {
             "title": "WeatherGPT",
-            "description": "AI-powered weather intelligence platform combining transformer-based forecasting with conversational interfaces (Gemini). Integrates real-time data from Open-Meteo and features a modern dark-mode UI using shadcn/ui.",
+            "description": "A modern weather forecasting platform combining transformer-based predictions with conversational AI powered by Google Gemini.",
             "tags": [
-                "Next.js",
-                "Gemini",
+                "Python",
                 "Transformers",
-                "Open-Meteo"
+                "FastAPI",
+                "React"
             ],
-            "link": "https://github.com/parzi-val/weather-gpt"
+            "link": "https://github.com/parzi-val/weather-gpt",
+            "github": "https://github.com/parzi-val/weather-gpt",
+            "featured": false,
+            "image": ""
         },
         {
             "title": "PR Agent",
-            "description": "Automated code review system that analyzes Pull Requests using a graph-based agent workflow to surface logic, security, and performance issues with severity-scored suggestions.",
+            "description": "Automated code review tool powered by LLMs that analyzes Pull Requests, identifies issues, and provides actionable suggestions.",
             "tags": [
-                "LLM",
-                "Agent Graphs",
-                "Code Review",
-                "Automation"
+                "Python",
+                "LangChain",
+                "OpenAI",
+                "Next.js"
             ],
-            "link": "https://github.com/parzi-val/pr-agent"
+            "link": "https://github.com/parzi-val/pr-agent",
+            "github": "https://github.com/parzi-val/pr-agent",
+            "featured": false,
+            "image": ""
         },
         {
-            "title": "Axle File Sync",
-            "description": "Peer-to-peer real-time file synchronization system for local teams and hackathons. Uses Git for diffs, Redis pub/sub for instant change propagation, and focuses on fast iteration rather than long-term cloud hosting.",
+            "title": "FFCS Timetable Generator",
+            "description": "A website for VIT students to completely automate the semester timetable generation during FFCS.",
             "tags": [
-                "Go",
-                "Redis",
-                "Git",
-                "P2P",
-                "Real-time"
+                "FastAPI",
+                "Gemini",
+                "Asyncio"
             ],
-            "link": "https://github.com/parzi-val/axle"
+            "link": "https://ffcs-pearl.vercel.app/",
+            "github": "https://github.com/parzi-val/ffcs",
+            "featured": false,
+            "image": "/ffcs.png"
+        },
+        {
+            "title": "Veritas",
+            "description": "A minimal Python microframework for safe shared mutable defaults, enabling lightweight stateful systems and in-memory caches.",
+            "tags": [
+                "Python",
+                "Microframework",
+                "Async"
+            ],
+            "link": "https://pypi.org/project/veritas-mem/",
+            "github": "https://github.com/parzi-val/veritas",
+            "featured": false,
+            "image": ""
+        },
+        {
+            "title": "de-mesp",
+            "description": "A decentralized AI marketplace focused on the validation of medical data using AI models and blockchain technology.",
+            "tags": [
+                "Express.js",
+                "FastAPI",
+                "Gemini"
+            ],
+            "link": "https://github.com/coderman400/de-mesp",
+            "github": "https://github.com/coderman400/de-mesp",
+            "featured": false,
+            "image": "/demesp.png"
+        },
+        {
+            "title": "Malayalam Lexicons",
+            "description": "Comprehensive collection of Malayalam words, including meanings, synonyms, IPA, POS, and morphemes.",
+            "tags": [
+                "Python",
+                "Streamlit"
+            ],
+            "link": "https://malayalam-lexicons.streamlit.app",
+            "github": "https://github.com/parzi-val/malayalam-lexicons",
+            "featured": false,
+            "image": ""
+        },
+        {
+            "title": "Fuzzy Querying for Video Databases",
+            "description": "A fuzzy querying framework concept for video databases with semantic information extraction.",
+            "tags": [
+                "YOLOv8",
+                "Spacy",
+                "MongoDB"
+            ],
+            "link": "https://github.com/parzi-val/fuzzy-querying",
+            "github": "https://github.com/parzi-val/fuzzy-querying",
+            "featured": false,
+            "image": ""
         }
     ],
     "writings": [

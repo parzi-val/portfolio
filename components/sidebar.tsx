@@ -16,7 +16,7 @@ interface NavLink {
 const links: NavLink[] = [
     { name: "About", href: "/", icon: User },
     { name: "Experience", href: "/#experience", icon: Briefcase },
-    { name: "Projects", href: "/#projects-full", icon: Folder },
+    { name: "Projects", href: "/projects", icon: Folder },
     { name: "Writing", href: "/writing", icon: PenTool },
 ]
 
@@ -27,9 +27,9 @@ export function Sidebar() {
     const [isOpen, setIsOpen] = useState(false)
     const [mounted, setMounted] = useState(false)
 
-    // Wait for mount to avoid hydration mismatch
     useEffect(() => {
-        setMounted(true)
+        const timer = setTimeout(() => setMounted(true), 0)
+        return () => clearTimeout(timer)
     }, [])
 
     // Sync sidebar width with CSS variable for global layout adjustment
@@ -38,7 +38,6 @@ export function Sidebar() {
         document.documentElement.style.setProperty("--sidebar-width", width)
     }, [isCollapsed])
 
-    // Close mobile sidebar on route change
     useEffect(() => {
         setIsOpen(false)
     }, [pathname])

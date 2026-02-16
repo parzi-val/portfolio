@@ -1,9 +1,7 @@
 import Image from "next/image"
-import { ExperienceSection } from "./experience-section"
-import { ProjectsSection } from "./projects-section"
-import { Github, Linkedin, Twitter, Mail } from "lucide-react"
 import Link from "next/link"
-import { PortfolioData } from "@/lib/data"
+import { Github, Linkedin, Twitter, Mail } from "lucide-react"
+import { PortfolioData } from "@/lib/types"
 
 const iconMap: Record<string, React.ReactNode> = {
     GitHub: <Github className="w-5 h-5" />,

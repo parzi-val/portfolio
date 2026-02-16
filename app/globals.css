@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -51,8 +52,11 @@
 }
 
 @theme {
-  --font-sans: "Space Grotesk", sans-serif;
-  --font-mono: "Space Mono", monospace;
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --spacing-sidebar: 264px;
+  --spacing-sidebar-collapsed: 80px;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -128,8 +132,47 @@
 }
 
 @layer base {
+
+  html,
   body {
     @apply bg-background text-foreground;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif !important;
+  }
+
+  /* Force prose to use theme fonts and standard styles */
+  .prose {
+    font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+    color: var(--muted-foreground);
+    max-width: none;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    color: var(--foreground) !important;
+    font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .prose a {
+    color: var(--foreground);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: 500;
+  }
+
+  .prose a:hover {
+    color: var(--primary);
+  }
+
+  .prose code,
+  .prose pre {
+    font-family: var(--font-space-mono), ui-monospace, SFMono-Regular, monospace !important;
+  }
+
+  .prose pre code {
+    background: transparent !important;
+    padding: 0 !important;
+    color: inherit;
   }
 }
