@@ -1,227 +1,109 @@
+import { getPortfolioData } from "@/lib/data"
+import { ExternalLink, Github, Terminal } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
-import { Navigation } from "@/components/navigation"
-import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Github } from "lucide-react"
+import { ScrollReveal } from "@/components/scroll-reveal"
+import { MobileIndex } from "@/components/mobile-index"
 
-export default function ProjectsPage() {
-  const projects = [
-    {
-      title: "Axle",
-      description:
-        "Axle is a real-time collaborative file synchronization system that enables teams to work together on shared directories using Git and Redis.",
-      image: "/axle.png?height=200&width=400",
-      tags: ["Go", "Fsnotify", "Git", "Redis"],
-      url: "https://parzi-val.github.io/axle-file-sync/",
-      github: "https://github.com/parzi-val/axle-file-sync",
-      featured: true,
-    },
-    {
-      title: "Judge",
-      description:
-        "Unified guardrail system for evaluating user prompts against safety policies using Small Language Models (SLMs) and logical policy expressions.",
-      image: "/placeholder.svg?height=200&width=400",
-      tags: ["Python", "SLMs", "Guardrails", "Asyncio"],
-      url: "https://github.com/parzi-val/judge",
-      github: "https://github.com/parzi-val/judge",
-      featured: false,
-    },
-    {
-      title: "MSME Sahayata",
-      description:
-        "An intelligent and accessible chatbot assistant designed to help individuals, especially women entrepreneurs and small business owners, explore government schemes.",
-      image: "/msme.png?height=200&width=400",
-      tags: ["React", "Next.js", "AI", "Chatbot"],
-      url: "https://msme-sahayata.vercel.app/",
-      github: "https://github.com/parzi-val/msme-sahayata",
-      featured: true,
-    },
-    {
-      title: "WeatherGPT",
-      description:
-        "A modern weather forecasting platform combining transformer-based predictions with conversational AI powered by Google Gemini.",
-      image: "/placeholder.svg?height=200&width=400",
-      tags: ["Python", "Transformers", "FastAPI", "React"],
-      url: "https://github.com/parzi-val/weather-gpt",
-      github: "https://github.com/parzi-val/weather-gpt",
-      featured: false,
-    },
-    {
-      title: "PR Agent",
-      description:
-        "Automated code review tool powered by LLMs that analyzes Pull Requests, identifies issues, and provides actionable suggestions.",
-      image: "/placeholder.svg?height=200&width=400",
-      tags: ["Python", "LangChain", "OpenAI", "Next.js"],
-      url: "https://github.com/parzi-val/pr-agent",
-      github: "https://github.com/parzi-val/pr-agent",
-      featured: false,
-    },
-    {
-      title: "FFCS Timetable Generator",
-      description: "A website for VIT students to completely automate the semester timetable generation during FFCS.",
-      image: "/ffcs.png?height=200&width=400",
-      tags: ["FastAPI", "Gemini", "Asyncio"],
-      url: "https://ffcs-pearl.vercel.app/",
-      github: "https://github.com/parzi-val/ffcs",
-      featured: false,
-    },
-    {
-      title: "Veritas",
-      description:
-        "A minimal Python microframework for safe shared mutable defaults, enabling lightweight stateful systems and in-memory caches.",
-      image: "/placeholder.svg?height=200&width=400",
-      tags: ["Python", "Microframework", "Async"],
-      url: "https://pypi.org/project/veritas-mem/",
-      github: "https://github.com/parzi-val/veritas",
-      featured: false,
-    },
-    {
-      title: "de-mesp",
-      description:
-        "A decentralized AI marketplace focused on the validation of medical data using AI models and blockchain technology.",
-      image: "/demesp.png?height=200&width=400",
-      tags: ["Express.js", "FastAPI", "Gemini"],
-      url: "https://github.com/coderman400/de-mesp",
-      github: "https://github.com/coderman400/de-mesp",
-      featured: false,
-    },
-    {
-      title: "Malayalam Lexicons",
-      description: "Comprehensive collection of Malayalam words, including meanings, synonyms, IPA, POS, and morphemes.",
-      image: "/placeholder.svg?height=200&width=400",
-      tags: ["Python", "Streamlit"],
-      url: "https://malayalam-lexicons.streamlit.app",
-      github: "https://github.com/parzi-val/malayalam-lexicons",
-      featured: false,
-    },
-    {
-      title: "Fuzzy Querying for Video Databases",
-      description: "A fuzzy querying framework concept for video databases with semantic information extraction.",
-      image: "/placeholder.svg?height=200&width=400",
-      tags: ["YOLOv8", "Spacy", "MongoDB"],
-      url: "https://github.com/parzi-val/fuzzy-querying",
-      github: "https://github.com/parzi-val/fuzzy-querying",
-      featured: false,
-    },
-  ]
+export default async function ProjectsPage() {
+    const data = await getPortfolioData()
 
-  const featuredProjects = projects.filter((project) => project.featured)
-  const otherProjects = projects.filter((project) => !project.featured)
+    const indexItems = data.projects.map(p => ({
+        text: p.title,
+        id: p.title.toLowerCase().replace(/[^a-z0-0]/g, '-')
+    }))
 
-  return (
-    <div className="min-h-screen bg-[#121212] text-gray-200 font-jetbrains">
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <Navigation currentPath="/projects" />
+    return (
+        <div className="bg-background text-foreground font-sans selection:bg-primary/20">
+            <main className="flex flex-col gap-12 pb-32 pt-32 relative">
+                <MobileIndex items={indexItems} />
+                <div className="max-w-6xl mx-auto w-full px-6 grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-16">
 
-        <div className="mt-6">
-          <h1 className="text-2xl font-bold text-violet-400 mb-6">Projects</h1>
+                    {/* Main Content: Project List */}
+                    <div className="space-y-16">
+                        <header className="space-y-4">
+                            <div className="flex items-center gap-2 text-primary">
+                                <Terminal size={20} />
+                                <span className="font-mono text-sm tracking-widest uppercase">Developer Log</span>
+                            </div>
+                            <h1 className="text-4xl font-medium tracking-tight">Project Archive</h1>
+                            <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
+                                A high-density chronological log of systems infrastructure, experiments, and developer tools.
+                            </p>
+                        </header>
 
-          {/* Featured Projects */}
-          <div className="mb-10">
-            <h2 className="text-lg font-bold mb-4 border-b border-gray-800 pb-2">Featured</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {featuredProjects.map((project, i) => (
-                <div key={i} className="bg-[#1a1a1a] rounded overflow-hidden">
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      width={400}
-                      height={200}
-                      className="w-full object-cover"
-                    />
-                    <div className="absolute top-2 right-2">
-                      <Badge className="bg-violet-500 text-black">Featured</Badge>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-xl font-bold text-violet-400">{project.title}</h3>
-                    <p className="text-gray-400 mt-2">{project.description}</p>
+                        <div className="space-y-12">
+                            {data.projects.map((project, i) => {
+                                // Create a slug-like ID for the index to anchor to
+                                const projectId = project.title.toLowerCase().replace(/[^a-z0-0]/g, '-')
+                                return (
+                                    <ScrollReveal key={i} animation="fade-up" delay={i * 50}>
+                                        <div id={projectId} className="group relative grid grid-cols-1 md:grid-cols-[1fr_2.5fr] gap-4 md:gap-12 pb-12 border-b border-border/40 last:border-0 scroll-mt-32">
+                                            <div className="space-y-2">
+                                                <h3 className="text-xl font-medium tracking-tight group-hover:text-primary transition-colors">
+                                                    {project.title}
+                                                </h3>
+                                                <div className="flex gap-4">
+                                                    {project.github && (
+                                                        <Link href={project.github} target="_blank" className="text-muted-foreground hover:text-foreground transition-colors">
+                                                            <Github size={18} />
+                                                        </Link>
+                                                    )}
+                                                    <Link href={project.link} target="_blank" className="text-muted-foreground hover:text-foreground transition-colors">
+                                                        <ExternalLink size={18} />
+                                                    </Link>
+                                                </div>
+                                            </div>
 
-                    <div className="flex flex-wrap gap-2 mt-4">
-                      {project.tags.map((tag, j) => (
-                        <span key={j} className="text-xs bg-[#252525] text-gray-300 px-2 py-1 rounded">
-                          {tag}
-                        </span>
-                      ))}
+                                            <div className="space-y-4">
+                                                <p className="text-muted-foreground leading-relaxed">
+                                                    {project.description}
+                                                </p>
+                                                <div className="flex flex-wrap gap-x-4 gap-y-2 text-[13px] font-mono text-muted-foreground/60">
+                                                    {project.tags.map((tag, j) => (
+                                                        <span key={j} className="before:content-['#'] before:mr-0.5">
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ScrollReveal>
+                                )
+                            })}
+                        </div>
                     </div>
 
-                    <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-800">
-                      <div className="flex items-center gap-4">
-                        <Link
-                          href={project.github}
-                          className="flex items-center gap-1 text-gray-400 hover:text-violet-400 transition-colors"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Github className="w-4 h-4" />
-                          <span>Repo</span>
-                        </Link>
-                      </div>
-                      <Link
-                        href={project.url}
-                        className="flex items-center gap-1 text-violet-400 hover:text-violet-300 transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <span>View Project</span>
-                        <ExternalLink className="w-4 h-4" />
-                      </Link>
-                    </div>
-                  </div>
+                    {/* Sidebar: Subtle Index (Desktop Only) */}
+                    <aside className="hidden lg:block">
+                        <div className="sticky top-32 space-y-8">
+                            <div className="space-y-4">
+                                <h4 className="text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground/60">Index</h4>
+                                <nav className="flex flex-col gap-3">
+                                    {data.projects.map((project, i) => {
+                                        const projectId = project.title.toLowerCase().replace(/[^a-z0-0]/g, '-')
+                                        return (
+                                            <Link
+                                                key={i}
+                                                href={`#${projectId}`}
+                                                className="text-[13px] text-muted-foreground hover:text-primary transition-colors truncate block border-l border-border/40 pl-4 py-0.5 hover:border-primary"
+                                            >
+                                                {project.title}
+                                            </Link>
+                                        )
+                                    })}
+                                </nav>
+                            </div>
+
+                            <div className="pt-8 border-t border-border/40">
+                                <p className="text-[11px] text-muted-foreground/40 leading-relaxed font-mono">
+                                    {"// Total: "}{data.projects.length} nodes registered
+                                </p>
+                            </div>
+                        </div>
+                    </aside>
+
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Other Projects */}
-          <div>
-            <h2 className="text-lg font-bold mb-4 border-b border-gray-800 pb-2">All Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {otherProjects.map((project, i) => (
-                <div key={i} className="bg-[#1a1a1a] rounded overflow-hidden">
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-violet-400">{project.title}</h3>
-                    <p className="text-gray-400 mt-2 text-sm">{project.description}</p>
-
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {project.tags.map((tag, j) => (
-                        <span key={j} className="text-xs bg-[#252525] text-gray-300 px-2 py-1 rounded">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-800">
-                      <div className="flex items-center gap-2">
-                        <Link
-                          href={project.github}
-                          className="flex items-center gap-1 text-gray-400 hover:text-violet-400 transition-colors text-xs"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Github className="w-3 h-3" />
-                          <span>Repo</span>
-                        </Link>
-                      </div>
-                      <Link
-                        href={project.url}
-                        className="flex items-center gap-1 text-violet-400 hover:text-violet-300 transition-colors text-xs"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <span>View</span>
-                        <ExternalLink className="w-3 h-3" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+            </main>
         </div>
-      </div>
-    </div>
-  )
+    )
 }
-
