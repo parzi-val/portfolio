@@ -10,9 +10,35 @@ import { ScrollReveal } from "@/components/scroll-reveal"
 import { Mermaid } from "@/components/mermaid"
 import { MobileIndex } from "@/components/mobile-index"
 import { notFound } from "next/navigation"
+import type { Metadata } from "next"
 
 interface PageProps {
     params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { slug } = await params
+    const blog = await getBlogBySlug(slug)
+
+    if (!blog) return {}
+
+    return {
+        title: `${blog.title} | Balasubramanian KR`,
+        description: blog.description,
+        openGraph: {
+            title: blog.title,
+            description: blog.description,
+            type: "article",
+            publishedTime: blog.date,
+            authors: ["Balasubramanian KR"],
+            tags: blog.tags,
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: blog.title,
+            description: blog.description,
+        }
+    }
 }
 
 export async function generateStaticParams() {
