@@ -43,20 +43,6 @@
     ],
     "projects": [
         {
-            "title": "Doorway Intelligence",
-            "description": "A physics-grounded approach to behavioral threat detection using pose-based kinematics, MoViNet, and geometric signals.",
-            "tags": [
-                "AI",
-                "Computer Vision",
-                "Systems",
-                "Security"
-            ],
-            "link": "/writing/doorbell",
-            "github": "https://github.com/parzi-val/doorbell-cam",
-            "featured": true,
-            "image": ""
-        },
-        {
             "title": "Axle",
             "description": "A real-time collaborative file synchronization system that enables teams to work together on shared directories using Git and Redis.",
             "tags": [
