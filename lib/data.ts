@@ -36,7 +36,15 @@ export async function getPortfolioData(): Promise<PortfolioData> {
             })
         );
 
-        data.writings = [...data.writings, ...localWritings].sort((a, b) => {
+        const localSlugs = new Set(localWritings.map(w => w.slug));
+        const filteredJsonWritings = data.writings.filter(w => {
+            if (w.link?.startsWith('/writing/')) {
+                const slug = w.link.replace('/writing/', '');
+                return !localSlugs.has(slug);
+            }
+            return true;
+        });
+        data.writings = [...filteredJsonWritings, ...localWritings].sort((a, b) => {
             return new Date(b.date).getTime() - new Date(a.date).getTime();
         });
     } catch (e) {

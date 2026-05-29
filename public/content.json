@@ -194,6 +194,28 @@
     ],
     "writings": [
         {
+            "title": "Coining Words with a Stenotype",
+            "description": "Using the stenotype keyboard as a geometric prior for learning English phonotactics — an unorthodox inductive bias that actually works.",
+            "date": "May 2026",
+            "link": "/writing/steno",
+            "tags": [
+                "ML",
+                "Linguistics",
+                "NLP"
+            ]
+        },
+        {
+            "title": "Doorway Intelligence: A Physics-Grounded Approach to Behavioral Threat Detection",
+            "description": "A physics-grounded approach to behavioral threat detection using pose-based kinematics, MoViNet, and geometric signals.",
+            "date": "Feb 2026",
+            "link": "/writing/doorbell",
+            "tags": [
+                "AI",
+                "Computer Vision",
+                "Security"
+            ]
+        },
+        {
             "title": "Decentralized Digital Identity: A Blockchain and Neural Network Approach",
             "description": "Featured research in Premier Journal of Science (2025). Explores integrating neural network technologies with blockchain-powered decentralized identity management.",
             "date": "Nov 2025",
