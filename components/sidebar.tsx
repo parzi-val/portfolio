@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
-import { Menu, X, LucideIcon, FileText, PenTool, User, Briefcase, Folder, Sun, Moon } from "lucide-react"
+import { Menu, X, LucideIcon, FileText, PenTool, User, Briefcase, Folder, Orbit, Sun, Moon } from "lucide-react"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 
@@ -17,6 +17,7 @@ const links: NavLink[] = [
     { name: "About", href: "/", icon: User },
     { name: "Experience", href: "/#experience", icon: Briefcase },
     { name: "Projects", href: "/projects", icon: Folder },
+    { name: "Research", href: "/semantic-gravity", icon: Orbit },
     { name: "Writing", href: "/writing", icon: PenTool },
 ]
 
