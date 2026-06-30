@@ -194,6 +194,17 @@
     ],
     "writings": [
         {
+            "title": "All Routes Lead to Collapse",
+            "description": "Preprint on arXiv (2026). Attention sinks, representation collapse, and norm stratification are not specific to attention: they are what content-based routing does under a fixed, norm-blind metric, on any routing axis.",
+            "date": "Jun 2026",
+            "link": "/publications/all-routes-lead-to-collapse",
+            "tags": [
+                "ML",
+                "Interpretability",
+                "Transformers"
+            ]
+        },
+        {
             "title": "Coining Words with a Stenotype",
             "description": "Using the stenotype keyboard as a geometric prior for learning English phonotactics — an unorthodox inductive bias that actually works.",
             "date": "May 2026",
