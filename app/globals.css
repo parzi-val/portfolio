@@ -92,6 +92,7 @@
 
   --animate-ball-bounce: ball-bounce 1.2s ease-out;
   --animate-blink: blink 1s infinite;
+  --animate-saturn-bob: saturn-bob 2.2s ease-in-out infinite;
 
   @keyframes ball-bounce {
 
@@ -127,6 +128,18 @@
     51%,
     100% {
       opacity: 0;
+    }
+  }
+
+  @keyframes saturn-bob {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-5px);
     }
   }
 }

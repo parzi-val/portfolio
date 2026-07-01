@@ -3,6 +3,7 @@ import "./globals.css";
 import "katex/dist/katex.min.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Sidebar } from "@/components/sidebar";
+import { SaturnHint } from "@/components/saturn-hint";
 import { Space_Grotesk, Space_Mono } from "next/font/google";
 import type { Writing } from "@/lib/types"; // Added this import as per instruction
 
@@ -65,6 +66,7 @@ export default function RootLayout({
               {children}
             </main>
           </div>
+          <SaturnHint />
         </ThemeProvider>
       </body>
     </html>
