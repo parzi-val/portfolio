@@ -10,6 +10,6 @@ export type ResearchProgram = {
  * without touching the sidebar or page code.
  */
 export const RESEARCH_PROGRAMS: ResearchProgram[] = [
-  { name: "Semantic Gravity", href: "/semantic-gravity", enabled: true },
+  { name: "Semantic Gravity", href: "/semantic-gravity", enabled: false },
   { name: "Attention Windowing", href: "/attention-windowing", enabled: true },
 ]
