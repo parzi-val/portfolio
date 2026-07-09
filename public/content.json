@@ -2,8 +2,8 @@
     "bio": {
         "greeting": "Hi, I'm Bala",
         "paragraphs": [
-            "I'm a systems-oriented software engineer who builds low-level infrastructure, deterministic pipelines, and developer tooling that prioritizes reliability, debuggability, and structured outputs over magic. I move comfortably between bare-metal-ish thinking and high-level abstractions when it actually makes sense.",
-            "Most of my work sits at the intersection of distributed systems, real-time synchronization, and applied AI — lately exploring multi agent architectures, physical intelligence, representational learning and slowly orbiting back toward robotics and simulation."
+            "I build systems: low-level infrastructure, deterministic pipelines, developer tooling that doesn't lie to you about what it's doing. Given the choice, I'll take boring and debuggable over clever and opaque every time.",
+            "Right now that's distributed systems, real-time sync, and applied AI, plus a couple of research threads on the side. Also slowly drifting back toward robotics, which is where I started caring about any of this in the first place."
         ],
         "avatar": "/me.jpg"
     },
