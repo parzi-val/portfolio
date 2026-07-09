@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "katex/dist/katex.min.css";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Sidebar } from "@/components/sidebar";
 import { SaturnHint } from "@/components/saturn-hint";
@@ -68,6 +69,7 @@ export default function RootLayout({
           </div>
           <SaturnHint />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
