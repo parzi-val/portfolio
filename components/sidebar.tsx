@@ -3,21 +3,28 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
-import { Menu, X, LucideIcon, FileText, PenTool, User, Briefcase, Folder, Orbit, Sun, Moon } from "lucide-react"
+import { Menu, X, LucideIcon, FileText, PenTool, User, Briefcase, Folder, Orbit, Sun, Moon, ChevronDown } from "lucide-react"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
+import { RESEARCH_PROGRAMS } from "@/lib/research-programs"
 
 interface NavLink {
     name: string
     href: string
     icon: LucideIcon
+    children?: { name: string; href: string }[]
 }
+
+const enabledPrograms = RESEARCH_PROGRAMS.filter((p) => p.enabled)
 
 const links: NavLink[] = [
     { name: "About", href: "/", icon: User },
     { name: "Experience", href: "/#experience", icon: Briefcase },
     { name: "Projects", href: "/projects", icon: Folder },
-    { name: "Research", href: "/semantic-gravity", icon: Orbit },
+    {
+        name: "Research", href: enabledPrograms[0]?.href ?? "/", icon: Orbit,
+        children: enabledPrograms.map((p) => ({ name: p.name, href: p.href })),
+    },
     { name: "Writing", href: "/writing", icon: PenTool },
 ]
 
@@ -27,6 +34,7 @@ export function Sidebar() {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
     const [mounted, setMounted] = useState(false)
+    const [researchOpen, setResearchOpen] = useState(false)
 
     useEffect(() => {
         const timer = setTimeout(() => setMounted(true), 0)
@@ -92,31 +100,76 @@ export function Sidebar() {
                 )}>
 
                     {links.map((link) => {
-                        const isActive = pathname === link.href
+                        const hasChildren = !!link.children && link.children.length > 0
+                        const isActive = link.children
+                            ? link.children.some((c) => pathname === c.href)
+                            : pathname === link.href
+                        const expanded = hasChildren && researchOpen && !isCollapsed
                         return (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                className={cn(
-                                    "flex items-center rounded-lg transition-all group",
-                                    isCollapsed ? "justify-center p-2" : "gap-3 px-3 py-2.5",
-                                    isActive
-                                        ? "bg-secondary text-foreground font-medium"
-                                        : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                            <div key={link.name}>
+                                <Link
+                                    href={link.href}
+                                    onClick={(e) => {
+                                        if (hasChildren && !isCollapsed) {
+                                            e.preventDefault()
+                                            setResearchOpen((v) => !v)
+                                        }
+                                    }}
+                                    className={cn(
+                                        "flex items-center rounded-lg transition-all group",
+                                        isCollapsed ? "justify-center p-2" : "gap-3 px-3 py-2.5",
+                                        isActive
+                                            ? "bg-secondary text-foreground font-medium"
+                                            : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                                    )}
+                                    title={isCollapsed ? link.name : ""}
+                                >
+                                    <link.icon className={cn(
+                                        "w-5 h-5 shrink-0 transition-colors",
+                                        isActive ? "text-primary" : "group-hover:text-foreground"
+                                    )} />
+                                    <span className={cn(
+                                        "text-sm transition-all duration-300",
+                                        isCollapsed ? "md:opacity-0 md:w-0 overflow-hidden" : "md:opacity-100"
+                                    )}>
+                                        {link.name}
+                                    </span>
+                                    {hasChildren && !isCollapsed && (
+                                        <ChevronDown
+                                            className={cn(
+                                                "w-4 h-4 shrink-0 ml-auto transition-transform duration-200",
+                                                expanded && "rotate-180"
+                                            )}
+                                        />
+                                    )}
+                                </Link>
+
+                                {hasChildren && expanded && (
+                                    <div className="ml-[26px] mt-1 space-y-1">
+                                        {link.children!.map((child, i) => {
+                                            const childActive = pathname === child.href
+                                            const isLast = i === link.children!.length - 1
+                                            return (
+                                                <Link
+                                                    key={child.href}
+                                                    href={child.href}
+                                                    className={cn(
+                                                        "relative flex items-center pl-4 pr-3 py-2 rounded-lg text-sm transition-all",
+                                                        "before:absolute before:left-0 before:top-0 before:w-[1.5px] before:bg-border",
+                                                        isLast ? "before:h-1/2" : "before:bottom-0",
+                                                        "after:absolute after:left-0 after:top-1/2 after:-translate-y-1/2 after:h-[1.5px] after:w-3 after:bg-border",
+                                                        childActive
+                                                            ? "bg-secondary text-foreground font-medium"
+                                                            : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                                                    )}
+                                                >
+                                                    {child.name}
+                                                </Link>
+                                            )
+                                        })}
+                                    </div>
                                 )}
-                                title={isCollapsed ? link.name : ""}
-                            >
-                                <link.icon className={cn(
-                                    "w-5 h-5 shrink-0 transition-colors",
-                                    isActive ? "text-primary" : "group-hover:text-foreground"
-                                )} />
-                                <span className={cn(
-                                    "text-sm transition-all duration-300",
-                                    isCollapsed ? "md:opacity-0 md:w-0 overflow-hidden" : "md:opacity-100"
-                                )}>
-                                    {link.name}
-                                </span>
-                            </Link>
+                            </div>
                         )
                     })}
                 </nav>

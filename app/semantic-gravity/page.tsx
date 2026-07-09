@@ -75,7 +75,7 @@ const THREADS: Thread[] = [
     status: "horizon",
     title: "Curvature on the token and depth axes",
     blurb:
-      "The speculative end: metric curvature on the token axis and learned residuals on the depth axis as two faces of the same geometric enrichment of an otherwise flat network. A possible Paper 3.",
+      "The speculative end: metric curvature on the token axis and learned residuals on the depth axis as two faces of the same geometric enrichment of an otherwise flat network. A possible later paper.",
   },
 ]
 
@@ -122,9 +122,6 @@ export default function SemanticGravityPage() {
 
         {/* Hero — field fully visible behind the title */}
         <section className="flex min-h-[78vh] flex-col items-center justify-center px-6 text-center">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground/70 mb-6">
-            A research program · K. R. Balasubramanian
-          </p>
           <h1 className="text-4xl md:text-6xl font-medium tracking-tight">Semantic Gravity</h1>
           <p className="mt-5 max-w-xl text-muted-foreground leading-relaxed">
             Content-based routing under a fixed, norm-blind metric produces the same concentration
