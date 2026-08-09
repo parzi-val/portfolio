@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coining Words with a Stenotype | bala</title>
+  <meta name="description" content="Using the stenotype keyboard as a geometric prior for learning English phonotactics, an unorthodox inductive bias that actually works.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+</head>
+<body>
+
+  <div class="page-container">
+    <!-- Centered Top Bar with Middle Dots -->
+    <header class="top-bar">
+      <nav>
+        <ul class="nav-links">
+          <li><a href="../index.html" class="">about</a></li>
+          <li><a href="../index.html#experience">experience</a></li>
+          <li><a href="../writing.html" class="active">writing</a></li>
+          <li><a href="../projects.html" class="">projects</a></li>
+          <li><a href="../attention-windowing.html" class="">research</a></li>
+          <li><a href="https://drive.google.com/file/d/1IonheWXeP6qduIyeO9GQjwvc1XvxbtZ2/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume ↗</a></li>
+          <li>
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">[theme]</button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      
+        <article class="article-body">
+          <div style="margin-bottom: 1.5rem;">
+            <a href="../writing.html" class="back-link">&larr; back to writing</a>
+          </div>
+
+          <h1>Coining Words with a Stenotype</h1>
+
+          <div class="article-meta-bar">
+            <span>Jun 2026</span>
+            <span>&middot;</span>
+            <span>12 min read</span>
+            <span>&middot;</span>
+            <span>ml, linguistics, nlp, systems</span>
+          </div>
+
+          <h2>Abstract</h2>
+<p>The question &quot;does this word sound English?&quot; is harder than it looks. Rule-based phonotactics accumulate exceptions. Existing language models can&#39;t embed a word they&#39;ve never seen. We took a different route: route the question through stenography.</p>
+<p>Court reporters have been solving a related problem for decades. The stenotype keyboard encodes English syllable structure so faithfully that it becomes a learned geometric prior for phonological validity. We trained a 623K-parameter transformer to map ARPABET phoneme sequences into steno embedding space, fine-tuned with InfoNCE contrastive learning, and got a scorer that cleanly separates real English phonotactics from garbage, including words that have never existed before.</p>
+<hr>
+<h2>1. What makes a word sound English</h2>
+<p>This isn&#39;t a philosophical question. It has a technical name: phonotactics, the set of constraints governing which sounds can appear where in a word.</p>
+<p>English has real phonotactic structure. The onset cluster <code>ST-</code> is fine (<em>stop</em>, <em>stream</em>, <em>string</em>). <code>TK-</code> doesn&#39;t occur. <code>NG-</code> appears as a coda (<code>ring</code>, <code>song</code>) but never as an onset; no English word starts with that sound. <code>SN-</code>, <code>SL-</code>, <code>SP-</code> are all fine. <code>ZB-</code>, <code>GB-</code>, <code>DT-</code> are not.</p>
+<p>These aren&#39;t arbitrary. They reflect the articulatory and historical pressures that shaped English speech over centuries. Native speakers internalize them without instruction. Ask someone if <em>vlak</em> sounds like it could be an English word and they&#39;ll probably say yes. Ask the same about <em>ngum</em> and they&#39;ll flinch.</p>
+<p>The engineering problem is representing that intuition computationally, not just for words in a dictionary, but for arbitrary phoneme sequences. Invented words. Coinages. Things that have never appeared in text.</p>
+<h3>Why existing approaches break</h3>
+<p>Rule-based phonotactics gets you 80% there. You enumerate valid onset clusters, coda clusters, vowel patterns. But edge cases accumulate. Loanwords bend the rules (<em>schmaltzy</em>, <em>vroom</em>). Creative combinations push boundaries in ways that feel valid but no rule explicitly permits. And you have to maintain the list forever. More fundamentally: rules tell you what&#39;s in the dictionary. They don&#39;t generalize.</p>
+<p>Language model embeddings fail for a completely different reason. You can&#39;t embed an invented word through BERT or similar. The model has never seen it, so it fragments it into subword tokens that don&#39;t reflect the intended phonology. The embedding you get back tells you the word is unfamiliar. You already knew that. The information content is zero.</p>
+<p>What you want is something that operates on phoneme sequences, not orthography, not tokens, and scores arbitrary sequences based on learned structure rather than lookup. You want generalization.</p>
+<hr>
+<h2>2. An aside into stenography</h2>
+<p>Court reporters write at 200+ words per minute using a machine called a stenotype. Not 200 WPM by typing very fast. 200 WPM by pressing multiple keys simultaneously. One chord. One syllable. One motion.</p>
+<p>The stenotype keyboard has 22 keys arranged in three groups:</p>
+<pre><code class="language-">Left hand (onset):  S  T  K  P  W  H  R
+Thumbs (vowels):    A  O  *  E  U
+Right hand (coda):  F  R  P  B  L  G  T  S  D  Z</code></pre>
+<p>The physical layout mirrors English syllable structure directly. Left-hand keys encode onset consonants: the consonant cluster before the vowel. Thumb keys encode the vowel complex. Right-hand keys encode the coda.</p>
+<p>To write <em>cat</em>, you press <code>K</code> (left) + <code>A</code> (thumb) + <code>T</code> (right). One simultaneous press. To write <em>strength</em>, you press <code>S</code> + <code>T</code> + <code>R</code> (left) + <code>E</code> (thumb) + <code>NG</code> + <code>T</code> (right). The whole word in one chord.</p>
+<p>A chord that doesn&#39;t correspond to any English syllable structure can&#39;t be pressed, not because the hardware prevents it, but because the layout simply doesn&#39;t have a natural mapping for it. <code>NG-</code> as an onset doesn&#39;t have a canonical chord because it doesn&#39;t occur in English speech. The system would produce a broken, unnatural press sequence, recognizable immediately to any trained stenographer.</p>
+<p>This layout was not designed by a linguist writing phonotactic rules. It was refined over decades of professional use by people whose literal job was to represent spoken English fast and without errors. The chord system encodes what&#39;s phonologically natural in English because stenographers needed it to work. If a sound combination breaks the system, it breaks because the combination doesn&#39;t occur in natural English speech, not because someone wrote a rule saying it shouldn&#39;t.</p>
+<p>A phoneme sequence that maps cleanly to a valid steno chord is phonotactically plausible. A sequence that produces a broken chord probably isn&#39;t.</p>
+<hr>
+<h2>3. The architecture</h2>
+<p>We train a transformer encoder to map ARPABET phoneme sequences into steno chord space. The encoder learns the geometry of that space from 44,498 aligned (phoneme sequence, steno stroke) pairs drawn from the CMU Pronouncing Dictionary and the Plover open-source stenotype dictionary.</p>
+<p>The input is a phoneme sequence, not the word itself. ARPABET has 39 phonemes (<code>AA</code>, <code>AE</code>, <code>AH</code>, ... <code>ZH</code>). Stress markers are stripped. The vocabulary is <code>[&lt;PAD&gt;, &lt;BOS&gt;, &lt;EOS&gt;]</code> + the 39 phonemes, 42 tokens total.</p>
+<p>The model is a 3-layer transformer encoder with 4 attention heads, 128-dimensional embeddings, and a 512-dimensional feedforward layer. Mean-pooling over the attended sequence produces a single 128-dimensional embedding. Two heads sit on top: a stroke predictor (binary classification over the 22 steno keys) and, at inference time, a kNN validity scorer.</p>
+<pre><code class="language-">Model parameters: 623,510</code></pre>
+<p>Small by any measure. The task is structured enough that it doesn&#39;t need scale.</p>
+<p>Self-attention handles context-dependent phoneme disambiguation. The phoneme cluster <code>/ð ɛr/</code> is ambiguous in isolation: it could map to <em>there</em> (location) or <em>their</em> (pronoun), which have different steno strokes. In a longer sequence, surrounding phonemes disambiguate. Stenographers do this cognitively in real-time; the attention mechanism encodes it structurally. For invented words, this matters when a user concatenates roots in ways that create phonotactically ambiguous junctions. The model resolves those in context rather than scoring each phoneme independently.</p>
+<hr>
+<h2>4. Two-phase training</h2>
+<h3>Phase 1: stroke prediction</h3>
+<p>The first objective is simple: given a phoneme sequence, predict which of the 22 steno keys are active. Multi-label binary cross-entropy against steno targets.</p>
+<p>The interesting design choice is soft targets. Homophones like <em>there</em>, <em>their</em>, and <em>they&#39;re</em> are phonetically identical but map to different steno strokes (<code>THR</code>, <code>THR*</code>, <code>TH-R</code>). If you commit to one arbitrarily as the training target, you&#39;re training against noise. Instead, the target vector is the mean of all valid stroke vectors for that phoneme sequence. The model learns the central tendency of valid steno space rather than arbitrarily committing to one homophone&#39;s chord.</p>
+<p>Training converges steadily over 20 epochs:</p>
+<pre><code class="language-">Epoch 01 | Train: 0.3152 | Val: 0.2164
+Epoch 05 | Train: 0.1781 | Val: 0.1703
+Epoch 10 | Train: 0.1633 | Val: 0.1604
+Epoch 15 | Train: 0.1561 | Val: 0.1533
+Epoch 20 | Train: 0.1533 | Val: 0.1523</code></pre>
+<p>Validation loss plateaus around 0.15. The model extracts most of the available signal in the first dozen epochs. Additional training doesn&#39;t help.</p>
+<h3>Phase 2: InfoNCE fine-tuning</h3>
+<p>Stroke prediction teaches the model the structure. Fine-tuning tightens the geometry.</p>
+<p>With the stroke head frozen, we apply InfoNCE contrastive loss. Real words are positives; synthetic negatives are constructed three ways:</p>
+<ul>
+<li>Shuffled phonemes (40%): take a real word&#39;s phoneme sequence, scramble the order. Breaks phonotactic structure while keeping sequence length realistic.</li>
+<li>Random phoneme sampling (40%): pure noise sequences of varying length.</li>
+<li>Known-bad onset clusters (20%): sequences starting with <code>ZB-</code>, <code>GB-</code>, <code>DT-</code>, or <code>TK-</code>, none of which occur in English. These are the hardest negatives.</li>
+</ul>
+<p>The contrastive objective pulls real-word embeddings into coherent neighborhoods without assuming a single cluster. That assumption matters: Germanic and Latinate phoneme patterns are genuinely far apart in phonological space. InfoNCE lets the structure emerge from the data rather than imposing a spherical prior.</p>
+<p>Fine-tuning runs for 8 epochs at a lower learning rate (1e-5), with the InfoNCE temperature set to 0.5:</p>
+<pre><code class="language-">FT Epoch 01 | Loss: 4.3997
+FT Epoch 04 | Loss: 4.3856
+FT Epoch 08 | Loss: 4.3729</code></pre>
+<p>The loss numbers look high because InfoNCE is a ratio over a large similarity matrix. What matters is the trajectory: steady descent, stable convergence.</p>
+<hr>
+<h2>5. Scoring at inference</h2>
+<p>The validity score is not a learned parameter. After fine-tuning, we embed the entire validation set (~4,450 words) and cache those normalized embeddings as a reference set. At inference:</p>
+<ol>
+<li>The phoneme sequence is encoded and L2-normalized to a 128-dimensional vector.</li>
+<li>Cosine similarity is computed against all 4,450 reference embeddings.</li>
+<li>The top-50 similarities are averaged.</li>
+<li>The result is passed through a sigmoid.</li>
+</ol>
+<p>No learned centroid. The valid region is defined by the actual distribution of real English words in embedding space, multimodal by construction. The scorer is purely geometric, which keeps the encoding decision (the transformer) cleanly separated from the scoring decision (kNN geometry). Both are independently interpretable.</p>
+<hr>
+<h2>6. What the embedding space looks like</h2>
+<p>After fine-tuning, we project 2,000 word embeddings through UMAP to see what structure emerged.</p>
+<p><figure style="text-align:center;margin:2rem 0;"><img src="../umap_steno_onset.png" alt="Steno Phonotactic Embedding Space (UMAP) — colored by onset phoneme" style="max-width:100%;border-radius:6px;border:1px solid var(--border);"><figcaption style="color:var(--muted);font-size:0.82rem;margin-top:0.5rem;font-family:var(--font-mono);">Steno Phonotactic Embedding Space (UMAP) — colored by onset phoneme</figcaption></figure>></p>
+<p>Words cluster by onset phoneme. Words beginning with vowels (<code>IH</code>, <code>EH</code>, <code>AE</code>, <code>AH</code>, <code>AO</code>, <code>OW</code>) occupy a distinct diagonal region, separate from consonantal onsets. Words beginning with <code>S-</code> cluster together. Words beginning with <code>K-</code> cluster separately. The model learned something that looks like phonological neighborhoods.</p>
+<p>This wasn&#39;t trained in. The model was never told anything about onset phonemes; it was trained to predict steno chords. The steno chord system encodes onset structure implicitly in the left-hand key layout, and the model recovered that structure in its embedding geometry.</p>
+<p>The vowel-initial cluster is particularly clean. <code>IH</code>-initial words (<em>interruptions</em>, <em>intrepid</em>, <em>invincible</em>) sit in a tight neighborhood. So do <code>EH</code>-initial words (<em>exponential</em>, <em>entertainment</em>, <em>ecologically</em>). Not because they sound the same, but because the steno left-hand keys for vowel-initial words follow consistent patterns, and the encoder learned to group them.</p>
+<hr>
+<h2>7. Results on the probe set</h2>
+<p>After InfoNCE fine-tuning, we tested against a small set of words chosen to probe different cases:</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Phonemes</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>frustration (real)</td>
+<td>F R AH S T R EY SH AH N</td>
+<td>0.9379</td>
+</tr>
+<tr>
+<td>frustation (plausible fake)</td>
+<td>F R AH S T EY SH AH N</td>
+<td>0.9397</td>
+</tr>
+<tr>
+<td>ngum (bad onset)</td>
+<td>NG AH M</td>
+<td>0.1565</td>
+</tr>
+<tr>
+<td>shtrik (borderline loanword)</td>
+<td>SH T R IH K</td>
+<td>0.4325</td>
+</tr>
+<tr>
+<td>vlak (Slavic onset)</td>
+<td>V L AE K</td>
+<td>0.9999</td>
+</tr>
+<tr>
+<td>glump (valid invented)</td>
+<td>G L AH M P</td>
+<td>0.9999</td>
+</tr>
+<tr>
+<td>ZBTK garbage</td>
+<td>Z B T K AE G</td>
+<td>0.1819</td>
+</tr>
+<tr>
+<td>random noise</td>
+<td>G Z AH B T IH K D</td>
+<td>0.1267</td>
+</tr>
+</tbody></table>
+<p>The discrimination is clean. Real English words and plausible coinages score near 1.0. Nonsense scores below 0.2. Borderline cases land in between.</p>
+<p><em>vlak</em> is worth a closer look. <code>VL-</code> is a Slavic onset cluster. It occurs in Czech, Russian, Polish, but not in native English. And yet the model scores it at 0.9999. Is this wrong?</p>
+<p>No. <code>VL-</code> is pronounceable by English speakers. It doesn&#39;t violate any articulatory constraint. English speakers who encounter <em>vlak</em> will produce it without difficulty. What they won&#39;t do is mistake it for a native word, but that&#39;s an etymological question, not a phonotactic one. The model is scoring phonetic plausibility, not etymological purity. For a word-coining tool that&#39;s the right call: flag sequences that English speakers can&#39;t produce, not sequences that merely have foreign origins. <em>Schmuck</em> has German origins. <em>Denim</em> comes from French. Loanwords are how languages grow.</p>
+<p><em>shtrik</em> scores 0.43, borderline. <code>SHT-</code> is a valid transcription of Yiddish influence in English but uncommon enough that it sits at the edge of the valid neighborhood. The model is hedging correctly.</p>
+<p><em>ngum</em> at 0.16 is unambiguous. <code>NG-</code> doesn&#39;t occur word-initially in English. No English speaker naturally produces it as an onset. The model learned this from the steno chord structure: there is no left-hand key sequence that produces an <code>NG-</code> onset, because stenographers never needed one.</p>
+<hr>
+<h2>8. Limitations</h2>
+<p>The Plover dictionary was built for transcription speed, not linguistic completeness. If a valid English phoneme combination was rare enough that no court reporter needed it at 200 WPM, it may not appear in Plover. The model may score some unusual-but-valid sequences lower than they deserve because those sequences fall outside the training distribution.</p>
+<p>The negative sampling is also synthetic. Shuffled phoneme sequences and random phoneme sampling are not the same as real mispronunciations, foreign-language attempts, or the kinds of words people actually invent when trying to coin vocabulary. The validity boundary learned from clean synthetic negatives may not generalize perfectly to messy real-world inputs.</p>
+<p>Both are acceptable for a first-version filter. The score is a soft signal, not a hard gate. A low score surfaces a warning; the user can override it.</p>
+<hr>
+<h2>9. Why the inductive bias works</h2>
+<p>The steno phonotactic encoder bets that the stenotype keyboard layout is a useful geometric prior for English phonology. That bet pays off because stenography is not arbitrary.</p>
+<p>The steno chord system is an empirically-refined representation of English syllable structure, shaped by decades of professional pressure to represent real English speech accurately and at speed. The constraint that made stenography useful to court reporters (that chords must map onto natural English phonological patterns) is exactly what we needed the model to learn.</p>
+<p>By training the transformer to predict steno chords from phoneme sequences, we&#39;re not just teaching it a transcription task. We&#39;re routing learning through a representation that has already encoded phonotactic structure. The model recovers that structure in its embedding geometry, onset clustering, vowel-initial neighborhoods, discrimination between valid and invalid consonant clusters, without any explicit phonological supervision.</p>
+<p>The alternative is enumerating rules. Rules require maintenance, break on edge cases, and don&#39;t generalize. The steno space generalizes by construction: it scores any phoneme sequence that maps into the embedding space, including ones it has never seen.</p>
+<p>Invented words, by definition, have never been seen. The encoder doesn&#39;t care.</p>
+<hr>
+<p><strong>Code:</strong> <a href="https://github.com/parzi-val/press">GitHub</a></p>
+
+        </article>
+      
+    </main>
+
+    <!-- Single Bottom Bar: fin. on the left, back button on the right -->
+    <footer class="fin-bar">
+      <span class="fin-text">fin.</span>
+      <a href="../writing.html" class="back-link">&larr; back to writing</a>
+    </footer>
+  </div>
+
+  <script src="../js/main.js"></script>
+  
+</body>
+</html>

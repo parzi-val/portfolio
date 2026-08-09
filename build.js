@@ -15,12 +15,18 @@ const ROOT_DIR = __dirname;
 const BLOGS_DIR = path.join(ROOT_DIR, 'blogs');
 const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
 const DIST_DIR = path.join(ROOT_DIR, 'prototype');
+const CLOUD_DIST_DIR = path.join(ROOT_DIR, 'dist');
 
 // Ensure output directories exist
 fs.mkdirSync(DIST_DIR, { recursive: true });
 fs.mkdirSync(path.join(DIST_DIR, 'writing'), { recursive: true });
 fs.mkdirSync(path.join(DIST_DIR, 'css'), { recursive: true });
 fs.mkdirSync(path.join(DIST_DIR, 'js'), { recursive: true });
+
+fs.mkdirSync(CLOUD_DIST_DIR, { recursive: true });
+fs.mkdirSync(path.join(CLOUD_DIST_DIR, 'writing'), { recursive: true });
+fs.mkdirSync(path.join(CLOUD_DIST_DIR, 'css'), { recursive: true });
+fs.mkdirSync(path.join(CLOUD_DIST_DIR, 'js'), { recursive: true });
 
 function processMathAndMarkdown(mdContent) {
   let hasMermaid = false;
@@ -551,7 +557,10 @@ function build() {
     }
   });
 
-  console.log('✨ Build complete in prototype/');
+  // 8. Mirror prototype to dist for Cloudflare Pages defaults
+  fs.cpSync(DIST_DIR, CLOUD_DIST_DIR, { recursive: true });
+
+  console.log('✨ Build complete in prototype/ & dist/');
 }
 
 build();
