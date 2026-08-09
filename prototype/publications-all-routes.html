@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Routes Lead to Collapse | Balasubramanian KR</title>
+  <meta name="description" content="attention sinks, representation collapse, and norm stratification are what content-based routing does under a fixed, norm-blind metric on any axis.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="page-container">
+    <!-- Centered Top Bar with Middle Dots -->
+    <header class="top-bar">
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">about</a></li>
+          <li><a href="index.html#experience">experience</a></li>
+          <li><a href="writing.html" class="active">writing</a></li>
+          <li><a href="projects.html">projects</a></li>
+          <li><a href="attention-windowing.html">research</a></li>
+          <li><a href="https://drive.google.com/file/d/1IonheWXeP6qduIyeO9GQjwvc1XvxbtZ2/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume ↗</a></li>
+          <li>
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">[theme]</button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <article class="article-body">
+        <div style="margin-bottom: 1.5rem;">
+          <a href="writing.html" class="back-link">&larr; back to writing</a>
+        </div>
+
+        <h1>All Routes Lead to Collapse</h1>
+        
+        <div class="article-meta-bar">
+          <span>preprint &middot; arXiv, 2026</span>
+          <span>&middot;</span>
+          <span>sole author</span>
+          <span>&middot;</span>
+          <a href="https://arxiv.org/abs/2606.22325" target="_blank" rel="noopener noreferrer">arXiv ↗</a>
+          <span>&middot;</span>
+          <a href="https://github.com/parzi-val/all-routes-lead-to-collapse" target="_blank" rel="noopener noreferrer">code &amp; data ↗</a>
+        </div>
+
+        <h2>role &amp; contribution</h2>
+        <p><strong>sole author &middot; independent research</strong></p>
+        <ul>
+          <li>derived the reframing identity exposing the flat, norm-blind metric inside softmax routing, with the Boltzmann form obtained from a maximum-entropy principle.</li>
+          <li>measured the concentration signature across 9 pretrained transformers and 4 non-attention routers (graph attention, SSM, recurrent mixer, depth residuals).</li>
+          <li>established causation with two within-model ablations (Mamba selectivity freeze and RWKV carry sweep).</li>
+        </ul>
+
+        <hr style="border: none; border-top: 1px solid var(--border); margin: 2rem 0;">
+
+        <h2>abstract</h2>
+        <p>
+          content-based routing mechanisms &mdash; whether multi-head attention, selective state-space scans, or dynamic graph aggregators &mdash; systematically concentrate weight onto a tiny subset of anchor positions. we show that attention sinks, representation collapse, and norm stratification are not quirks of attention: they are what content-based routing does under a fixed, norm-blind metric, on any routing axis.
+        </p>
+
+        <hr style="border: none; border-top: 1px solid var(--border); margin: 2rem 0;">
+
+        <h2>citation</h2>
+        <pre><code>@article{balasubramanian2026all,
+  title   = {All Routes Lead to Collapse},
+  author  = {Balasubramanian, K. R.},
+  journal = {arXiv preprint arXiv:2606.22325},
+  year    = {2026}
+}</code></pre>
+      </article>
+    </main>
+
+    <!-- Single Bottom Bar: fin. on the left, back button on the right -->
+    <footer class="fin-bar">
+      <span class="fin-text">fin.</span>
+      <a href="writing.html" class="back-link">&larr; back to writing</a>
+    </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

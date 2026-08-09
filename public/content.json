@@ -2,10 +2,9 @@
     "bio": {
         "greeting": "Hi, I'm Bala",
         "paragraphs": [
-            "I build systems: low-level infrastructure, deterministic pipelines, developer tooling that doesn't lie to you about what it's doing. Given the choice, I'll take boring and debuggable over clever and opaque every time.",
-            "Right now that's distributed systems, real-time sync, and applied AI, plus a couple of research threads on the side. Also slowly drifting back toward robotics, which is where I started caring about any of this in the first place."
-        ],
-        "avatar": "/me.jpg"
+            "i'm 21, finishing my masters in cs. i build systems: mostly agentic, deterministic pipelines, developer tooling that doesn't lie to you about what it's doing.",
+            "right now that's distributed systems, real-time sync, and applied AI, plus a couple of research threads on the side. also slowly drifting back toward robotics, which is where i started caring about any of this in the first place."
+        ]
     },
     "socials": [
         {
@@ -14,11 +13,11 @@
         },
         {
             "platform": "LinkedIn",
-            "href": "https://www.linkedin.com/in/balasubramaniankr/"
+            "href": "https://www.linkedin.com/in/balasubramaniankr"
         },
         {
             "platform": "Twitter",
-            "href": "https://x.com/parzeival"
+            "href": "https://x.com/parzival_kr"
         },
         {
             "platform": "Email",
@@ -27,9 +26,10 @@
     ],
     "experiences": [
         {
-            "title": "AI Agentic R&D Intern - NTT GDC",
-            "period": "May 2025 - July 2025",
-            "description": "Built 'Judge', a real-time LLM guardrail and policy evaluation engine that reduced evaluation latency by 83%. Researched MCP and designed prototype multi-agent and single-agent hybrid architectures focused on reliability and controllability for enterprise AI systems.",
+            "title": "AI Agentic R&D Intern",
+            "company": "NTT GDC",
+            "period": "May 2025 - Jul 2025",
+            "description": "Architected agentic systems using Google ADK and Semantic Kernel for enterprise workloads. Built dynamic routing layers for model evaluation, reducing query latency by 40%. Implemented secure MCP servers for standardized AI-system interactions.",
             "skills": [
                 "LLM",
                 "MCP",
@@ -43,6 +43,55 @@
     ],
     "projects": [
         {
+            "title": "SpeechTex",
+            "description": "A Rust CLI that compiles LaTeX and complex mathematical expressions into speech-friendly English phrasing optimized for TTS engines like ElevenLabs.",
+            "tags": [
+                "Rust",
+                "LaTeX",
+                "Parser",
+                "TTS",
+                "CLI"
+            ],
+            "date": "Jul 2026",
+            "link": "https://github.com/parzi-val/SpeechTex",
+            "github": "https://github.com/parzi-val/SpeechTex",
+            "featured": false,
+            "image": ""
+        },
+        {
+            "title": "Aegis",
+            "description": "A citizen-owned, local-first personal health record system for Android with on-device multimodal Gemma extraction and SQLCipher encryption.",
+            "tags": [
+                "Android",
+                "Kotlin",
+                "On-Device AI",
+                "Gemma",
+                "LiteRT",
+                "SQLCipher"
+            ],
+            "date": "Jun 2026",
+            "link": "https://github.com/parzi-val/aegis",
+            "github": "https://github.com/parzi-val/aegis",
+            "featured": true,
+            "image": ""
+        },
+        {
+            "title": "Judge",
+            "description": "Unified Safety & Authorization Engine. A guardrail framework combining content moderation, RBAC, and agent tool-governance under a single policy abstraction with parallel SLM execution.",
+            "tags": [
+                "Python",
+                "SLM",
+                "Asyncio",
+                "Guardrails",
+                "Policy Engines"
+            ],
+            "date": "Apr 2025",
+            "link": "https://github.com/parzi-val/judge",
+            "github": "https://github.com/parzi-val/judge",
+            "featured": true,
+            "image": ""
+        },
+        {
             "title": "Doorway Intelligence",
             "description": "A physics-grounded approach to behavioral threat detection using pose-based kinematics, MoViNet, and geometric signals.",
             "tags": [
@@ -51,6 +100,7 @@
                 "Systems",
                 "Security"
             ],
+            "date": "Feb 2026",
             "link": "/writing/doorbell",
             "github": "https://github.com/parzi-val/doorbell-cam",
             "featured": true,
@@ -65,24 +115,25 @@
                 "Git",
                 "Redis"
             ],
+            "date": "Jan 2026",
             "link": "https://parzi-val.github.io/axle-file-sync/",
             "github": "https://github.com/parzi-val/axle-file-sync",
             "featured": true,
             "image": "/axle.png"
         },
         {
-            "title": "Judge / PolicyTree",
-            "description": "Unified Safety & Authorization Engine. A guardrail framework combining content moderation, RBAC, and agent tool-governance under a single policy abstraction. Uses an async tree-based policy evaluator with parallel SLM execution.",
+            "title": "Veritas",
+            "description": "A minimal Python microframework for safe shared mutable defaults, enabling lightweight stateful systems and in-memory caches.",
             "tags": [
                 "Python",
-                "SLM",
-                "Asyncio",
-                "Guardrails",
-                "Policy Engines"
+                "Microframework",
+                "Async"
             ],
-            "link": "https://github.com/parzi-val/judge",
-            "github": "https://github.com/parzi-val/judge",
-            "featured": true,
+            "date": "Aug 2025",
+            "link": "https://pypi.org/project/veritas-mem/",
+            "github": "https://github.com/parzi-val/veritas",
+            "blog": "https://earthy-shrimp-457.notion.site/veritas-mutable-defaults-to-lambda-classes-24147640429a809ba1ced30cdbe320a4",
+            "featured": false,
             "image": ""
         },
         {
@@ -94,9 +145,10 @@
                 "AI",
                 "Chatbot"
             ],
+            "date": "Jul 2025",
             "link": "https://msme-sahayata.vercel.app/",
             "github": "https://github.com/parzi-val/msme-sahayata",
-            "featured": true,
+            "featured": false,
             "image": "/msme.png"
         },
         {
@@ -108,6 +160,7 @@
                 "FastAPI",
                 "React"
             ],
+            "date": "Jun 2025",
             "link": "https://github.com/parzi-val/weather-gpt",
             "github": "https://github.com/parzi-val/weather-gpt",
             "featured": false,
@@ -122,6 +175,7 @@
                 "OpenAI",
                 "Next.js"
             ],
+            "date": "May 2025",
             "link": "https://github.com/parzi-val/pr-agent",
             "github": "https://github.com/parzi-val/pr-agent",
             "featured": false,
@@ -135,23 +189,11 @@
                 "Gemini",
                 "Asyncio"
             ],
+            "date": "Jan 2025",
             "link": "https://ffcs-pearl.vercel.app/",
             "github": "https://github.com/parzi-val/ffcs",
             "featured": false,
             "image": "/ffcs.png"
-        },
-        {
-            "title": "Veritas",
-            "description": "A minimal Python microframework for safe shared mutable defaults, enabling lightweight stateful systems and in-memory caches.",
-            "tags": [
-                "Python",
-                "Microframework",
-                "Async"
-            ],
-            "link": "https://pypi.org/project/veritas-mem/",
-            "github": "https://github.com/parzi-val/veritas",
-            "featured": false,
-            "image": ""
         },
         {
             "title": "de-mesp",
@@ -161,6 +203,7 @@
                 "FastAPI",
                 "Gemini"
             ],
+            "date": "Nov 2024",
             "link": "https://github.com/coderman400/de-mesp",
             "github": "https://github.com/coderman400/de-mesp",
             "featured": false,
@@ -173,6 +216,7 @@
                 "Python",
                 "Streamlit"
             ],
+            "date": "May 2024",
             "link": "https://malayalam-lexicons.streamlit.app",
             "github": "https://github.com/parzi-val/malayalam-lexicons",
             "featured": false,
@@ -186,6 +230,7 @@
                 "Spacy",
                 "MongoDB"
             ],
+            "date": "Jan 2024",
             "link": "https://github.com/parzi-val/fuzzy-querying",
             "github": "https://github.com/parzi-val/fuzzy-querying",
             "featured": false,

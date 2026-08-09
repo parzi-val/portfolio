@@ -1,7 +1,7 @@
 ---
 title: "Coining Words with a Stenotype"
 description: "Using the stenotype keyboard as a geometric prior for learning English phonotactics, an unorthodox inductive bias that actually works."
-date: "May 2026"
+date: "June 2026"
 tags: ["ML", "Linguistics", "NLP", "Systems"]
 ---
 
