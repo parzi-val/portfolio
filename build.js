@@ -31,8 +31,14 @@ fs.mkdirSync(path.join(CLOUD_DIST_DIR, 'js'), { recursive: true });
 function processMathAndMarkdown(mdContent) {
   let hasMermaid = false;
 
-  // 1. Block Math: $$ ... $$
-  let processed = mdContent.replace(/\$\$([\s\S]+?)\$\$/g, (match, math) => {
+  // 1. Detect and Convert Mermaid blocks: ```mermaid ... ```
+  let processed = mdContent.replace(/```mermaid\s*([\s\S]+?)```/gi, (match, code) => {
+    hasMermaid = true;
+    return `<div class="mermaid-container"><pre class="mermaid">\n${code.trim()}\n</pre></div>`;
+  });
+
+  // 2. Block Math: $$ ... $$
+  processed = processed.replace(/\$\$([\s\S]+?)\$\$/g, (match, math) => {
     try {
       return `<div class="math-block">${katex.renderToString(math.trim(), { displayMode: true, throwOnError: false })}</div>`;
     } catch (err) {
@@ -40,7 +46,7 @@ function processMathAndMarkdown(mdContent) {
     }
   });
 
-  // 2. Inline Math: $ ... $
+  // 3. Inline Math: $ ... $
   processed = processed.replace(/(?<!\\)\$([^\$\n]+?)\$/g, (match, math) => {
     try {
       return katex.renderToString(math.trim(), { displayMode: false, throwOnError: false });
@@ -49,7 +55,7 @@ function processMathAndMarkdown(mdContent) {
     }
   });
 
-  // 3. Custom renderer for Mermaid & standard code blocks
+  // 4. Custom renderer for Mermaid & standard code blocks
   const renderer = new marked.Renderer();
   renderer.code = function(tokenOrCode, infostring) {
     const code = typeof tokenOrCode === 'object' ? tokenOrCode.text : tokenOrCode;
@@ -64,8 +70,8 @@ function processMathAndMarkdown(mdContent) {
 
   let html = marked.parse(processed, { renderer, gfm: true, breaks: false });
 
-  // 4. Relative Image Paths
-  html = html.replace(/<img src="\/([^"]+)" alt="([^"]*)"/g, '<figure style="text-align:center;margin:2rem 0;"><img src="../$1" alt="$2" style="max-width:100%;border-radius:6px;border:1px solid var(--border);"><figcaption style="color:var(--muted);font-size:0.82rem;margin-top:0.5rem;font-family:var(--font-mono);">$2</figcaption></figure>');
+  // 5. Root-Relative Image Paths for clean URL support (no more relative ../ path issues)
+  html = html.replace(/<img src="\/([^"]+)" alt="([^"]*)"/g, '<figure style="text-align:center;margin:2rem 0;"><img src="/$1" alt="$2" style="max-width:100%;border-radius:6px;border:1px solid var(--border);"><figcaption style="color:var(--muted);font-size:0.82rem;margin-top:0.5rem;font-family:var(--font-mono);">$2</figcaption></figure>');
 
   return { html, hasMermaid };
 }
@@ -126,8 +132,7 @@ function parseDateInfo(rawDateStr) {
 }
 
 // --- Helper: Render Project Links ---
-function renderProjectLinks(proj, depth = 0) {
-  const rootRel = depth === 0 ? '' : '../';
+function renderProjectLinks(proj) {
   const links = [];
 
   // GitHub Link
@@ -139,7 +144,7 @@ function renderProjectLinks(proj, depth = 0) {
   if (proj.link && proj.link.trim() !== '') {
     if (proj.link.startsWith('/writing/')) {
       const slug = proj.link.replace('/writing/', '');
-      links.push(`<a href="${rootRel}writing/${slug}.html">blog &rarr;</a>`);
+      links.push(`<a href="/writing/${slug}.html">blog &rarr;</a>`);
     } else if (proj.link.includes('pypi.org')) {
       links.push(`<a href="${proj.link}" target="_blank" rel="noopener noreferrer">pypi ↗</a>`);
     } else if (proj.link !== proj.github) {
@@ -150,7 +155,7 @@ function renderProjectLinks(proj, depth = 0) {
   // Separate Blog Link (e.g. Notion, Medium, or local)
   if (proj.blog && proj.blog.trim() !== '') {
     const isInternal = proj.blog.startsWith('/writing/');
-    const href = isInternal ? `${rootRel}writing/${proj.blog.replace('/writing/', '')}.html` : proj.blog;
+    const href = isInternal ? `/writing/${proj.blog.replace('/writing/', '')}.html` : proj.blog;
     const target = isInternal ? '' : 'target="_blank" rel="noopener noreferrer"';
     links.push(`<a href="${href}" ${target}>blog ${isInternal ? '&rarr;' : '↗'}</a>`);
   }
@@ -173,10 +178,8 @@ const SOCIAL_ICONS_MAP = {
   'Email': ICONS.email
 };
 
-// --- Centered Layout Template with Single Fin Bar ---
-function renderLayout({ title, description, activeTab = 'about', content, depth = 0, hasMath = false, hasMermaid = false, backLink = null }) {
-  const rootRel = depth === 0 ? '' : '../';
-
+// --- Centered Layout Template with Root-Relative Absolute Paths ---
+function renderLayout({ title, description, activeTab = 'about', content, hasMath = false, hasMermaid = false, backLink = null }) {
   return `<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
@@ -184,7 +187,7 @@ function renderLayout({ title, description, activeTab = 'about', content, depth 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title}</title>
   <meta name="description" content="${description}">
-  <link rel="stylesheet" href="${rootRel}css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
   ${hasMath ? '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">' : ''}
 </head>
 <body>
@@ -194,11 +197,11 @@ function renderLayout({ title, description, activeTab = 'about', content, depth 
     <header class="top-bar">
       <nav>
         <ul class="nav-links">
-          <li><a href="${rootRel}index.html" class="${activeTab === 'about' ? 'active' : ''}">about</a></li>
-          <li><a href="${rootRel}index.html#experience">experience</a></li>
-          <li><a href="${rootRel}writing.html" class="${activeTab === 'writing' ? 'active' : ''}">writing</a></li>
-          <li><a href="${rootRel}projects.html" class="${activeTab === 'projects' ? 'active' : ''}">projects</a></li>
-          <li><a href="${rootRel}attention-windowing.html" class="${activeTab === 'research' ? 'active' : ''}">research</a></li>
+          <li><a href="/index.html" class="${activeTab === 'about' ? 'active' : ''}">about</a></li>
+          <li><a href="/index.html#experience">experience</a></li>
+          <li><a href="/writing.html" class="${activeTab === 'writing' ? 'active' : ''}">writing</a></li>
+          <li><a href="/projects.html" class="${activeTab === 'projects' ? 'active' : ''}">projects</a></li>
+          <li><a href="/attention-windowing.html" class="${activeTab === 'research' ? 'active' : ''}">research</a></li>
           <li><a href="https://drive.google.com/file/d/1IonheWXeP6qduIyeO9GQjwvc1XvxbtZ2/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume ↗</a></li>
           <li>
             <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">[theme]</button>
@@ -219,7 +222,7 @@ function renderLayout({ title, description, activeTab = 'about', content, depth 
     </footer>
   </div>
 
-  <script src="${rootRel}js/main.js"></script>
+  <script src="/js/main.js"></script>
   ${hasMermaid ? `
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
@@ -283,11 +286,11 @@ function build() {
       depth: 1,
       hasMath: true,
       hasMermaid,
-      backLink: { href: '../writing.html', label: 'back to writing' },
+      backLink: { href: '/writing.html', label: 'back to writing' },
       content: `
         <article class="article-body">
           <div style="margin-bottom: 1.5rem;">
-            <a href="../writing.html" class="back-link">&larr; back to writing</a>
+            <a href="/writing.html" class="back-link">&larr; back to writing</a>
           </div>
 
           <h1>${blog.title}</h1>
@@ -317,7 +320,7 @@ function build() {
       date: parseDateInfo("Jul 2026").display,
       timestamp: parseDateInfo("Jul 2026").timestamp,
       tags: ["transformers", "compression"],
-      href: "attention-windowing.html",
+      href: "/attention-windowing.html",
       external: false
     },
     ...blogs.map(b => ({
@@ -326,18 +329,18 @@ function build() {
       date: b.date,
       timestamp: b.timestamp,
       tags: b.tags,
-      href: `writing/${b.slug}.html`,
+      href: `/writing/${b.slug}.html`,
       external: false
     })),
     ...data.writings.map(w => {
       const dateInfo = parseDateInfo(w.date);
       let href = w.link;
       if (w.link.startsWith('/publications/all-routes')) {
-        href = 'publications-all-routes.html';
+        href = '/publications-all-routes.html';
       } else if (w.link.startsWith('/publications/decentralized')) {
-        href = 'publications-identity.html';
+        href = '/publications-identity.html';
       } else if (w.link.startsWith('/writing/')) {
-        href = `writing/${w.link.replace('/writing/', '')}.html`;
+        href = `/writing/${w.link.replace('/writing/', '')}.html`;
       }
 
       return {
@@ -384,7 +387,7 @@ function build() {
         <div>
           <h1 class="hero-title">hi, i'm bala</h1>
         </div>
-        <img src="me.jpg" alt="Bala" class="hero-avatar">
+        <img src="/me.jpg" alt="Bala" class="hero-avatar">
       </div>
 
       <div class="hero-bio">
@@ -423,7 +426,7 @@ function build() {
     <section id="writing" class="section-block">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.4rem;">
         <h2 class="section-heading" style="border:none;margin:0;padding:0;">writing &amp; research</h2>
-        <a href="writing.html" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);">all entries &rarr;</a>
+        <a href="/writing.html" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);">all entries &rarr;</a>
       </div>
 
       <div class="writing-list">
@@ -442,7 +445,7 @@ function build() {
     <section id="projects" class="section-block">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.4rem;">
         <h2 class="section-heading" style="border:none;margin:0;padding:0;">projects</h2>
-        <a href="projects.html" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);">archive &rarr;</a>
+        <a href="/projects.html" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--muted);">archive &rarr;</a>
       </div>
 
       <div class="projects-list">
@@ -451,7 +454,7 @@ function build() {
             <div class="project-item-top">
               <span class="project-item-title">${proj.title}</span>
               <div class="project-item-links">
-                ${renderProjectLinks(proj, 0)}
+                ${renderProjectLinks(proj)}
               </div>
             </div>
             <p class="project-item-desc">${proj.description.charAt(0).toLowerCase() + proj.description.slice(1)}</p>
@@ -473,7 +476,7 @@ function build() {
   // 5. Generate Projects Archive (projects.html - Chronologically Ordered)
   const projectsContent = `
     <div style="margin-bottom:1.5rem;">
-      <a href="index.html" class="back-link">&larr; back to home</a>
+      <a href="/index.html" class="back-link">&larr; back to home</a>
     </div>
 
     <div style="margin-bottom:2.5rem;">
@@ -489,7 +492,7 @@ function build() {
           <div class="project-item-top">
             <span class="project-item-title">${proj.title}</span>
             <div class="project-item-links">
-              ${renderProjectLinks(proj, 0)}
+              ${renderProjectLinks(proj)}
             </div>
           </div>
           <p class="project-item-desc">${proj.description.charAt(0).toLowerCase() + proj.description.slice(1)}</p>
@@ -507,14 +510,14 @@ function build() {
     description: 'archive of systems tools, research prototypes, and experiments.',
     activeTab: 'projects',
     content: projectsContent,
-    backLink: { href: 'index.html', label: 'back to home' }
+    backLink: { href: '/index.html', label: 'back to home' }
   }));
   console.log('  ✓ Generated projects.html');
 
   // 6. Generate Writing Index (writing.html)
   const writingContent = `
     <div style="margin-bottom:1.5rem;">
-      <a href="index.html" class="back-link">&larr; back to home</a>
+      <a href="/index.html" class="back-link">&larr; back to home</a>
     </div>
 
     <div style="margin-bottom:2.5rem;">
@@ -544,7 +547,7 @@ function build() {
     description: 'technical logs, preprints, and research articles by balasubramanian kr.',
     activeTab: 'writing',
     content: writingContent,
-    backLink: { href: 'index.html', label: 'back to home' }
+    backLink: { href: '/index.html', label: 'back to home' }
   }));
   console.log('  ✓ Generated writing.html');
 

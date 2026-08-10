@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Doorway Intelligence: A Physics-Grounded Approach to Behavioral Threat Detection | bala</title>
   <meta name="description" content="A physics-grounded approach to behavioral threat detection using pose-based kinematics, MoViNet, and geometric signals.">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
 </head>
 <body>
@@ -15,11 +15,11 @@
     <header class="top-bar">
       <nav>
         <ul class="nav-links">
-          <li><a href="../index.html" class="">about</a></li>
-          <li><a href="../index.html#experience">experience</a></li>
-          <li><a href="../writing.html" class="active">writing</a></li>
-          <li><a href="../projects.html" class="">projects</a></li>
-          <li><a href="../attention-windowing.html" class="">research</a></li>
+          <li><a href="/index.html" class="">about</a></li>
+          <li><a href="/index.html#experience">experience</a></li>
+          <li><a href="/writing.html" class="active">writing</a></li>
+          <li><a href="/projects.html" class="">projects</a></li>
+          <li><a href="/attention-windowing.html" class="">research</a></li>
           <li><a href="https://drive.google.com/file/d/1IonheWXeP6qduIyeO9GQjwvc1XvxbtZ2/view?usp=sharing" target="_blank" rel="noopener noreferrer">resume ↗</a></li>
           <li>
             <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">[theme]</button>
@@ -33,7 +33,7 @@
       
         <article class="article-body">
           <div style="margin-bottom: 1.5rem;">
-            <a href="../writing.html" class="back-link">&larr; back to writing</a>
+            <a href="/writing.html" class="back-link">&larr; back to writing</a>
           </div>
 
           <h1>Doorway Intelligence: A Physics-Grounded Approach to Behavioral Threat Detection</h1>
@@ -83,20 +83,20 @@ flowchart LR
     Camera --> Movinet
     Camera --> YOLO
 
-    Pose --> SignalExtractors
-    Movinet --> PressureSignal
-    YOLO --> WeaponSignal
+<pre><code class="language-">Pose --> SignalExtractors
+Movinet --> PressureSignal
+YOLO --> WeaponSignal
 
-    SignalExtractors --> Fusion
-    PressureSignal --> Fusion
-    WeaponSignal --> Fusion
+SignalExtractors --> Fusion
+PressureSignal --> Fusion
+WeaponSignal --> Fusion
 
-    Fusion --> IntentFSM
-    IntentFSM --> Logger
-    IntentFSM --> Dashboard
-    Logger --> GeminiSummary
-    GeminiSummary --> Dashboard
-</pre></div>
+Fusion --> IntentFSM
+IntentFSM --> Logger
+IntentFSM --> Dashboard
+Logger --> GeminiSummary
+GeminiSummary --> Dashboard</code></pre>
+<p></pre></div></p>
 <p>Each component serves a specific interpretive role.</p>
 <ul>
 <li>Pose extraction captures geometry.</li>
@@ -250,6 +250,7 @@ stateDiagram-v2
     SUSPICIOUS --> UNUSUAL
     UNUSUAL --> CALM
 </pre></div>
+
 <p>Thresholds:</p>
 <ul>
 <li>CALM: I &lt; 0.4</li>
@@ -532,11 +533,11 @@ This work was motivated by the observation that existing doorbell cameras optimi
     <!-- Single Bottom Bar: fin. on the left, back button on the right -->
     <footer class="fin-bar">
       <span class="fin-text">fin.</span>
-      <a href="../writing.html" class="back-link">&larr; back to writing</a>
+      <a href="/writing.html" class="back-link">&larr; back to writing</a>
     </footer>
   </div>
 
-  <script src="../js/main.js"></script>
+  <script src="/js/main.js"></script>
   
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
